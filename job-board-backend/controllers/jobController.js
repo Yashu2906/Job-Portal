@@ -1,4 +1,4 @@
-const jobModel = require("../models/jobModel");
+const { jobModel } = require("../models/jobModel");
 
 const createJob = async (req, res) => {
   try {
@@ -22,15 +22,40 @@ const createJob = async (req, res) => {
       jobType,
       experienceLevel,
       postedBy: req.user._id,
-      status: "pending",
+      status: false, // default false (pending approval)
     });
 
     await newJob.save();
-
     return res.status(201).json({ success: true, message: "Job created successfully", job: newJob });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
 
-module.exports = createJob;
+const getJob = async (req, res) => {
+  try {
+    const { search, jobType, experienceLevel, location } = req.query; // use query for filters
+    const query = { status: true }; // only approved jobs
+
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+        { location: { $regex: search, $options: "i" } },
+        { company: { $regex: search, $options: "i" } }
+      ];
+    }
+
+    if (jobType) query.jobType = jobType;
+    if (experienceLevel) query.experienceLevel = experienceLevel;
+    if (location) query.location = location;
+
+    const jobs = await jobModel.find(query).sort({ createdAt: -1 });
+
+    return res.status(200).json({ success: true, count: jobs.length, jobs });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { createJob, getJob };
