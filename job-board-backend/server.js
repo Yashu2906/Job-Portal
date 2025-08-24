@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const authRouter = require('./routes/authRoutes');
 const jobRouter = require('./routes/jobRoutes');
+const adminRouter = require('./routes/adminRoutes');
 
 
 const app = express()
@@ -21,6 +22,7 @@ app.get('/api', (req,res)=>{
 
 app.use('/api/auth',authRouter)
 app.use('/api/job',jobRouter)
+app.use('/api/admin',adminRouter)
 
 app.listen(PORT , ()=>{
     console.log(`Server running on port ${PORT}`)

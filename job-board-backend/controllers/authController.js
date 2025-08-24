@@ -7,9 +7,9 @@ const jwt = require('jsonwebtoken');
 
 
 const register = async (req , res) =>{
-    const {name , email , password} = req.body;
+    const {name , email , password ,role} = req.body;
 
-    if(!name || !email || !password){
+    if(!name || !email || !password ){
         return res.status(400).json({success:false , message:"Please fill all details"})
     }
     try{
@@ -19,7 +19,7 @@ const register = async (req , res) =>{
         }
         const hashedPassword = await bcrypt.hash(password , 10)
 
-        const newUser = new userModel({name , email , password:hashedPassword})
+        const newUser = new userModel({name , email , password:hashedPassword , role})
       
         await newUser.save();
         const token = jwt.sign({userId:newUser._id},process.env.JWT_SECRET,{expiresIn:"7d"})
