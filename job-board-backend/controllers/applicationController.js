@@ -74,4 +74,20 @@ const getApplicationByJob = async (req, res) => {
   }
 };
 
-module.exports = { applyJob, getApplicationByJob };
+const getUserApplications = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const applications = await application
+      .find({ applicant: userId })
+      .populate("jobId", "title company location status")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ success: true, applications });
+  } catch (error) {
+    console.error("Error fetching user applications:", error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { applyJob, getApplicationByJob, getUserApplications };
