@@ -1,6 +1,7 @@
 const application = require("../models/applicationModel");
 const cloudinary = require("../config/cloudinary");
 const streamifier = require("streamifier");
+const { jobModel } = require("../models/jobModel");
 
 const applyJob = async (req, res) => {
   try {
@@ -47,4 +48,30 @@ const applyJob = async (req, res) => {
   }
 };
 
-module.exports = { applyJob };
+const getApplicationByJob = async (req, res) => {
+  try {
+    const { jobId } = req.params;
+
+    const job = await jobModel.findById(jobId);
+    if (!job) {
+      return res.status(404).json({ success: false, message: "Job not found" });
+    }
+
+    if (job.postedBy.toString() !== req.user.id) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Not authorized" });
+    }
+
+    const applications = await application
+      .find({ jobId })
+      .populate("applicant", "name email")
+      .sort({ createdAt: -1 });
+
+    res.json({ success: true, applications });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { applyJob, getApplicationByJob };

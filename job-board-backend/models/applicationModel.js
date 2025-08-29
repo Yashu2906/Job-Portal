@@ -3,7 +3,11 @@ const mongoose = require("mongoose");
 const applicationSchema = new mongoose.Schema(
   {
     jobId: { type: mongoose.Schema.Types.ObjectId, ref: "Job", required: true },
-    applicationId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    applicant: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
     resumeUrl: { type: String, required: true },
     coverLetter: { type: String, required: false },
     status: {
@@ -15,4 +19,5 @@ const applicationSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
 module.exports = mongoose.model("Application", applicationSchema);
