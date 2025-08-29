@@ -85,7 +85,6 @@ const getUserApplications = async (req, res) => {
 
     res.status(200).json({ success: true, applications });
   } catch (error) {
-    console.error("Error fetching user applications:", error);
     return res.status(500).json({ success: false, message: error.message });
   }
 };
