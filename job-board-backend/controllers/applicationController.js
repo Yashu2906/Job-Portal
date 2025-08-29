@@ -1,0 +1,50 @@
+const application = require("../models/applicationModel");
+const cloudinary = require("../config/cloudinary");
+const streamifier = require("streamifier");
+
+const applyJob = async (req, res) => {
+  try {
+    const { jobId } = req.body;
+
+    if (!req.file) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Resume is required" });
+    }
+
+    // Wrap Cloudinary upload_stream in a Promise
+    const uploadStream = () =>
+      new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { resource_type: "auto", folder: "Resumes" },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        );
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+      });
+
+    // Wait for Cloudinary upload
+    const uploadResult = await uploadStream();
+
+    // Save application in DB
+    const newApp = new application({
+      jobId: jobId,
+      applicant: req.user.id,
+      resumeUrl: uploadResult.secure_url,
+    });
+
+    const savedApp = await newApp.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Application submitted",
+      application: savedApp,
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { applyJob };
