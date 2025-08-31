@@ -6,7 +6,7 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 const Login = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff]">
-      <div className="w-[1100px] h-[700px] bg-[#fff] overflow-hidden rounded-3xl shadow-2xl flex">
+      <div className="w-[1050px] h-[675px] bg-[#fff] overflow-hidden rounded-4xl shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex">
         <div className="w-1/2 h-full flex flex-col justify-center items-center bg-white text-[#333]">
           <form className="w-[450px] flex flex-col ">
             <h1 className="text-5xl font-bold text-center">Login</h1>
