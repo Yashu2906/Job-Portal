@@ -86,6 +86,18 @@ const Login = () => {
             </button>
           </form>
         </div>
+        <div className="absolute h-full w-full">
+          <div>
+            <h1>Hello, Welcome!</h1>
+            <p>Don't have an account?</p>
+            <button>Register</button>
+          </div>
+          <div>
+            <h1>Welcome Back!</h1>
+            <p>Already have an account?</p>
+            <button>Login</button>
+          </div>
+        </div>
       </div>
     </div>
   );
