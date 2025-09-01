@@ -1,103 +1,166 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Login = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  const [selectedRole, setSelectedRole] = useState("Job Seeker");
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff]">
-      <div className="w-[1050px] h-[675px] bg-[#fff] overflow-hidden rounded-4xl shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex">
-        <div className="w-1/2 h-full flex flex-col justify-center items-center bg-white text-[#333]">
-          <form className="w-[450px] flex flex-col ">
-            <h1 className="text-5xl font-bold text-center">Login</h1>
+      <div className="relative w-[1250px] h-[800px] bg-white overflow-hidden rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex">
+        {/* Left Side - Login */}
+        <div className="w-1/2 h-full flex flex-col justify-center items-center bg-white text-[#333] p-8">
+          <h1 className="text-6xl font-bold text-center">Login</h1>
 
-            <div className="relative flex mt-10">
-              <input
-                className="w-full h-15 px-5 pr-12 bg-[#eee] text-[20px] text-[#333] font-medium rounded-xl outline-none"
-                type="email"
-                placeholder="Email"
-                required
-              />
-              <FontAwesomeIcon
-                icon={faEnvelope}
-                className="text-gray-500 absolute top-1/2 right-5 transform -translate-y-1/2 text-2xl"
-              />
-            </div>
-
-            <div className="relative flex mt-8">
-              <input
-                className="w-full h-15 px-5 pr-14 bg-[#eee] text-[20px] text-[#333] font-medium rounded-xl outline-none"
-                type="password"
-                placeholder="Password"
-                required
-              />
-              <FontAwesomeIcon
-                icon={faLock}
-                className="text-gray-500 absolute top-1/2 right-5 transform -translate-y-1/2 text-2xl"
-              />
-            </div>
-
-            <button className="w-full h-14 bg-[#7494ec] rounded-[8px] text-[#fff] text-[22px] font-bold cursor-pointer mt-8">
-              Login
-            </button>
-          </form>
-        </div>
-        <div className="w-1/2 h-full flex flex-col justify-center items-center bg-white text-[#333]">
-          <form className="w-[450px] flex flex-col">
-            <h1 className="text-5xl font-bold text-center">Register</h1>
-            <div className="relative flex mt-10">
-              <input
-                className="w-full h-15 px-5 pr-12 bg-[#eee] text-[20px] text-[#333] font-medium rounded-xl outline-none"
-                type="name"
-                placeholder="Name"
-                required
-              />
-              <FontAwesomeIcon
-                icon={faUser}
-                className="text-gray-500 absolute top-1/2 right-5 transform -translate-y-1/2 text-2xl"
-              />
-            </div>
-            <div className="relative flex mt-7">
-              <input
-                className="w-full h-15 px-5 pr-12 bg-[#eee] text-[20px] text-[#333] font-medium rounded-xl outline-none"
-                type="email"
-                placeholder="Email"
-                required
-              />
-              <FontAwesomeIcon
-                icon={faEnvelope}
-                className="text-gray-500 absolute top-1/2 right-5 transform -translate-y-1/2 text-2xl"
-              />
-            </div>
-            <div className="relative flex mt-7">
-              <input
-                className="w-full h-15 px-5 pr-14 bg-[#eee] text-[20px] text-[#333] font-medium rounded-xl outline-none"
-                type="password"
-                placeholder="Password"
-                required
-              />
-              <FontAwesomeIcon
-                icon={faLock}
-                className="text-gray-500 absolute top-1/2 right-5 transform -translate-y-1/2 text-2xl"
-              />
-            </div>
-            <button className="w-full h-14 bg-[#7494ec] rounded-[8px] text-[#fff] text-[22px] font-bold cursor-pointer mt-7">
-              Register
-            </button>
-          </form>
-        </div>
-        <div className="absolute h-full w-full">
-          <div>
-            <h1>Hello, Welcome!</h1>
-            <p>Don't have an account?</p>
-            <button>Register</button>
+          <div className="relative flex mt-10 w-[500px]">
+            <input
+              className="w-full h-18 px-5 pr-12 bg-[#eee] text-[24px] text-[#333] font-medium rounded-xl outline-none"
+              type="email"
+              placeholder="Email"
+              required
+            />
+            <FontAwesomeIcon
+              icon={faEnvelope}
+              className=" absolute top-1/2 right-4 transform -translate-y-1/2 text-3xl"
+            />
           </div>
-          <div>
-            <h1>Welcome Back!</h1>
-            <p>Already have an account?</p>
-            <button>Login</button>
+
+          <div className="relative flex mt-6 w-[500px]">
+            <input
+              className="w-full h-18 px-5 pr-14 bg-[#eee] text-[24px] text-[#333] font-medium rounded-xl outline-none"
+              type="password"
+              placeholder="Password"
+              required
+            />
+            <FontAwesomeIcon
+              icon={faLock}
+              className="text-gray-600 absolute top-1/2 right-4 transform -translate-y-1/2 text-3xl"
+            />
           </div>
+
+          <button className="w-[500px] h-18 bg-[#7494ec] rounded-xl text-white text-[24px] font-bold cursor-pointer mt-8">
+            Login
+          </button>
         </div>
+
+        {/* Right Side - Register */}
+        <div className="w-1/2 h-full flex flex-col justify-center items-center bg-white text-[#333] p-8">
+          <h1 className="text-6xl font-bold text-center">Register</h1>
+
+          <div className="relative flex mt-10 w-[500px]">
+            <input
+              className="w-full h-18 px-5 pr-12 bg-[#eee] text-[24px] text-[#333] font-medium rounded-xl outline-none"
+              type="text"
+              placeholder="Name"
+              required
+            />
+            <FontAwesomeIcon
+              icon={faUser}
+              className=" absolute top-1/2 right-4 transform -translate-y-1/2 text-3xl"
+            />
+          </div>
+
+          <div className="relative flex mt-6 w-[500px]">
+            <input
+              className="w-full h-18 px-5 pr-12 bg-[#eee] text-[24px] text-[#333] font-medium rounded-xl outline-none"
+              type="email"
+              placeholder="Email"
+              required
+            />
+            <FontAwesomeIcon
+              icon={faEnvelope}
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-3xl"
+            />
+          </div>
+
+          <div className="relative flex mt-6 w-[500px]">
+            <input
+              className="w-full h-18 px-5 pr-14 bg-[#eee] text-[24px] text-[#333] font-medium rounded-xl outline-none"
+              type="password"
+              placeholder="Password"
+              required
+            />
+            <FontAwesomeIcon
+              icon={faLock}
+              className="text-gray-600 absolute top-1/2 right-4 transform -translate-y-1/2 text-3xl"
+            />
+          </div>
+          {/* Role Selection */}
+          <div className="mb-2 w-[85%]">
+            <label className="block text-[24px] font-medium text-gray-700 my-3">
+              Select Role
+            </label>
+            <div className="grid grid-cols-3 gap-3">
+              {["Job Seeker", "Company", "Admin"].map((role) => (
+                <button
+                  key={role}
+                  type="button"
+                  className={`py-3 px-5 rounded-xl border shadow-sm text-lg font-medium transition-all duration-300 hover:scale-105  data-[selected=true]:bg-[#5c73db] data-[selected=true]:text-white `}
+                  onClick={() => setSelectedRole(role)}
+                  data-selected={selectedRole === role}
+                >
+                  {role}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <button className="w-[500px] h-18 bg-[#7494ec] rounded-xl text-white text-[24px] font-bold cursor-pointer mt-8">
+            Register
+          </button>
+        </div>
+
+        {/* Sliding Overlay */}
+        <motion.div
+          animate={{ x: isLogin ? "0%" : "100%" }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+          className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-[#7494ec] to-[#5c73db] flex flex-col justify-center items-center text-white p-10 rounded-[50px]"
+        >
+          <AnimatePresence mode="wait">
+            {isLogin ? (
+              <motion.div
+                key="loginOverlay"
+                initial={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 40 }}
+                transition={{ duration: 0.6 }}
+                className="text-center"
+              >
+                <h1 className="text-5xl font-extrabold mb-4">
+                  Hello, Welcome!
+                </h1>
+                <p className="text-[24px] mb-6">Already have an account?</p>
+                <button
+                  onClick={() => setIsLogin(false)}
+                  className="px-8 py-4 w-[75%] bg-[#5c73db] text-[#fff] border-[2px] text-[24px] font-bold rounded-2xl cursor-pointer"
+                >
+                  Login
+                </button>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="registerOverlay"
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -40 }}
+                transition={{ duration: 0.6 }}
+                className="text-center"
+              >
+                <h1 className="text-5xl font-extrabold mb-4">Welcome Back!</h1>
+                <p className="text-[24px] mb-6">Don't have an account?</p>
+                <button
+                  onClick={() => setIsLogin(true)}
+                  className="px-8 py-4 w-[75%] bg-[#5c73db] text-[#fff] border-[2px] text-[24px] font-bold rounded-2xl cursor-pointer"
+                >
+                  Register
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </div>
   );
