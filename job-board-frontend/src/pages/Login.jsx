@@ -1,24 +1,55 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { motion, AnimatePresence } from "framer-motion";
+import { AuthContext } from "../context/authContext";
 
 const Login = () => {
+  const { login, register } = useContext(AuthContext);
+
   const [isLogin, setIsLogin] = useState(true);
-  const [selectedRole, setSelectedRole] = useState("Job Seeker");
+  const [selectedRole, setSelectedRole] = useState("JobSeekers");
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (isLogin) {
+        const data = await register(name, email, password, selectedRole);
+        console.log(data);
+      } else {
+        const data = await login(email, password);
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff]">
       <div className="relative w-[1250px] h-[800px] bg-white overflow-hidden rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex">
         {/* Left Side - Login */}
-        <div className="w-1/2 h-full flex flex-col justify-center items-center bg-white text-[#333] p-8">
+        <form
+          onSubmit={onSubmitHandler}
+          className="w-1/2 h-full flex flex-col justify-center items-center bg-white text-[#333] p-8"
+        >
           <h1 className="text-6xl font-bold text-center">Login</h1>
 
           <div className="relative flex mt-10 w-[500px]">
             <input
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
               className="w-full h-18 px-5 pr-12 bg-[#eee] text-[24px] text-[#333] font-medium rounded-xl outline-none"
               type="email"
+              value={email}
               placeholder="Email"
               required
             />
@@ -30,8 +61,12 @@ const Login = () => {
 
           <div className="relative flex mt-6 w-[500px]">
             <input
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
               className="w-full h-18 px-5 pr-14 bg-[#eee] text-[24px] text-[#333] font-medium rounded-xl outline-none"
               type="password"
+              value={password}
               placeholder="Password"
               required
             />
@@ -41,19 +76,29 @@ const Login = () => {
             />
           </div>
 
-          <button className="w-[500px] h-18 bg-[#7494ec] rounded-xl text-white text-[24px] font-bold cursor-pointer mt-8">
+          <button
+            type="submit"
+            className="w-[500px] h-18 bg-[#7494ec] rounded-xl text-white text-[24px] font-bold cursor-pointer mt-8"
+          >
             Login
           </button>
-        </div>
+        </form>
 
         {/* Right Side - Register */}
-        <div className="w-1/2 h-full flex flex-col justify-center items-center bg-white text-[#333] p-8">
+        <form
+          onSubmit={onSubmitHandler}
+          className="w-1/2 h-full flex flex-col justify-center items-center bg-white text-[#333] p-8"
+        >
           <h1 className="text-6xl font-bold text-center">Register</h1>
 
           <div className="relative flex mt-10 w-[500px]">
             <input
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
               className="w-full h-18 px-5 pr-12 bg-[#eee] text-[24px] text-[#333] font-medium rounded-xl outline-none"
               type="text"
+              value={name}
               placeholder="Name"
               required
             />
@@ -65,8 +110,12 @@ const Login = () => {
 
           <div className="relative flex mt-6 w-[500px]">
             <input
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
               className="w-full h-18 px-5 pr-12 bg-[#eee] text-[24px] text-[#333] font-medium rounded-xl outline-none"
               type="email"
+              value={email}
               placeholder="Email"
               required
             />
@@ -78,8 +127,12 @@ const Login = () => {
 
           <div className="relative flex mt-6 w-[500px]">
             <input
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
               className="w-full h-18 px-5 pr-14 bg-[#eee] text-[24px] text-[#333] font-medium rounded-xl outline-none"
               type="password"
+              value={password}
               placeholder="Password"
               required
             />
@@ -89,16 +142,13 @@ const Login = () => {
             />
           </div>
           {/* Role Selection */}
-          <div className="mb-2 w-[85%]">
-            <label className="block text-[24px] font-medium text-gray-700 my-3">
-              Select Role
-            </label>
-            <div className="grid grid-cols-3 gap-3">
-              {["Job Seeker", "Company", "Admin"].map((role) => (
+          <div className="mb-2 w-[90%] ml-[25%]">
+            <div className="grid grid-cols-3 gap-3 mt-6">
+              {["JobSeekers", "Company"].map((role) => (
                 <button
                   key={role}
                   type="button"
-                  className={`py-3 px-5 rounded-xl border shadow-sm text-lg font-medium transition-all duration-300 hover:scale-105  data-[selected=true]:bg-[#5c73db] data-[selected=true]:text-white `}
+                  className={`py-3 px-5 rounded-xl border shadow-sm text-lg font-medium transition-all duration-300 hover:scale-105  data-[selected=true]:bg-[#5c73db] data-[selected=true]:text-white cursor-pointer`}
                   onClick={() => setSelectedRole(role)}
                   data-selected={selectedRole === role}
                 >
@@ -108,10 +158,13 @@ const Login = () => {
             </div>
           </div>
 
-          <button className="w-[500px] h-18 bg-[#7494ec] rounded-xl text-white text-[24px] font-bold cursor-pointer mt-8">
+          <button
+            type="submit"
+            className="w-[500px] h-18 bg-[#7494ec] rounded-xl text-white text-[24px] font-bold cursor-pointer mt-8"
+          >
             Register
           </button>
-        </div>
+        </form>
 
         {/* Sliding Overlay */}
         <motion.div
