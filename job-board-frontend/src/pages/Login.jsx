@@ -4,9 +4,12 @@ import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { motion, AnimatePresence } from "framer-motion";
 import { AuthContext } from "../context/authContext";
+import { data, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const { login, register } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [isLogin, setIsLogin] = useState(true);
   const [selectedRole, setSelectedRole] = useState("JobSeekers");
@@ -21,14 +24,19 @@ const Login = () => {
     try {
       if (isLogin) {
         const data = await register(name, email, password, selectedRole);
-        console.log(data);
+        toast.success(data?.message);
+        if (data?.success) {
+          navigate("/");
+        }
       } else {
         const data = await login(email, password);
-        console.log(data);
+        toast.success(data?.message);
+        if (data?.success) {
+          navigate("/");
+        }
       }
     } catch (error) {
-      console.log(error);
-      alert(error.message);
+      toast.error(error.message);
     }
   };
 

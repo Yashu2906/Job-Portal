@@ -1,6 +1,7 @@
 import React, { Children, useState } from "react";
 import { createContext } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
 
@@ -20,7 +21,7 @@ const AuthContextProvider = ({ children }) => {
       localStorage.setItem("token", res.data.token);
       return res.data;
     } catch (error) {
-      alert(error);
+      toast.error(error.response?.data?.message);
     }
   };
 
@@ -34,7 +35,7 @@ const AuthContextProvider = ({ children }) => {
       localStorage.setItem("token", res.data.token);
       return res.data;
     } catch (error) {
-      alert(error);
+      toast.error(error.response?.data?.message);
     }
   };
 
