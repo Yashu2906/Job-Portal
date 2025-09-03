@@ -1,5 +1,4 @@
-import React, { Children, useState } from "react";
-import { createContext } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -8,6 +7,25 @@ export const AuthContext = createContext();
 const AuthContextProvider = ({ children }) => {
   const backendUrl = "http://localhost:4000";
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // 👈 new state
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .get(`${backendUrl}/api/auth/profile`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => setUser(res.data.user))
+        .catch(() => {
+          localStorage.removeItem("token");
+          setUser(null);
+        })
+        .finally(() => setLoading(false)); // 👈 stop loading
+    } else {
+      setLoading(false);
+    }
+  }, []);
 
   const register = async (name, email, password, role) => {
     try {
@@ -39,8 +57,13 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("token");
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, register }}>
+    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
