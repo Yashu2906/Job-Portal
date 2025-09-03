@@ -30,7 +30,7 @@ const CitySearchBox = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto mt-20 relative">
+    <div className="w-full max-w-md mx-auto mt-4 relative">
       <input
         type="text"
         value={query}

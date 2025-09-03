@@ -23,7 +23,7 @@ const Navbar = () => {
       {/* Buttons */}
       {user ? (
         <button
-          onClick={logout}
+          onClick={(logout, () => navigate("/login"))}
           className="px-14 py-3 bg-[#5c73db] text-white text-[24px] font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
         >
           Logout
