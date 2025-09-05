@@ -7,9 +7,7 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex">
-        <JobPage />
-      </div>
+      <JobPage />
     </div>
   );
 };

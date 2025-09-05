@@ -26,13 +26,21 @@ const Login = () => {
         const data = await register(name, email, password, selectedRole);
         toast.success(data?.message);
         if (data?.success) {
-          navigate("/");
+          if (selectedRole === "Company") {
+            navigate("/company");
+          } else {
+            navigate("/");
+          }
         }
       } else {
         const data = await login(email, password);
         toast.success(data?.message);
         if (data?.success) {
-          navigate("/");
+          if (data?.user?.role === "Company") {
+            navigate("/company");
+          } else {
+            navigate("/");
+          }
         }
       }
     } catch (error) {
