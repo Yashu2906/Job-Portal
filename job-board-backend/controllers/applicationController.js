@@ -89,4 +89,44 @@ const getUserApplications = async (req, res) => {
   }
 };
 
-module.exports = { applyJob, getApplicationByJob, getUserApplications };
+const updateApplicationStatus = async (req, res) => {
+  try {
+    const { id } = req.params; // applicationId
+    const { status } = req.body; // new status
+
+    const validStatuses = ["reviewed", "shortlisted", "rejected"];
+    if (!validStatuses.includes(status)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid status" });
+    }
+
+    const app = await application.findById(id).populate("jobId");
+    if (!app) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Application not found" });
+    }
+
+    // Ensure company owns the job
+    if (app.jobId.postedBy.toString() !== req.user.id) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Not authorized" });
+    }
+
+    app.status = status;
+    await app.save();
+
+    res.json({ success: true, message: "Status updated", application: app });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = {
+  applyJob,
+  getApplicationByJob,
+  getUserApplications,
+  updateApplicationStatus,
+};

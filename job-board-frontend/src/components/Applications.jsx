@@ -5,30 +5,57 @@ import { toast } from "react-toastify";
 const Applications = () => {
   const [applications, setApplications] = useState({});
   const [loading, setLoading] = useState(true);
-
   const backendUrl = "http://localhost:4000";
 
   useEffect(() => {
-    const fetchApplications = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const res = await axios.get(`${backendUrl}/api/application/company`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        if (res.data.success) {
-          setApplications(res.data.applications);
-        } else {
-          toast.error("Failed to fetch applications");
-        }
-      } catch (error) {
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchApplications();
   }, []);
+
+  const fetchApplications = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.get(`${backendUrl}/api/application/company`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.data.success) setApplications(res.data.applications);
+    } catch (error) {
+      toast.error("Error fetching applications");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Auto-update status when resume opened
+  const handleOpenResume = async (appId, resumeUrl) => {
+    const token = localStorage.getItem("token");
+    try {
+      await axios.patch(
+        `${backendUrl}/api/application/${appId}/status`,
+        { status: "reviewed" },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      fetchApplications(); // refresh UI
+      window.open(resumeUrl, "_blank"); // open resume
+    } catch (error) {
+      toast.error("Failed to mark as reviewed");
+    }
+  };
+
+  // Manual status update
+  const handleStatusUpdate = async (appId, status) => {
+    const token = localStorage.getItem("token");
+    try {
+      await axios.patch(
+        `${backendUrl}/api/application/${appId}/status`,
+        { status },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.success(`Application ${status}`);
+      fetchApplications();
+    } catch (error) {
+      toast.error("Failed to update status");
+    }
+  };
 
   return (
     <div>
@@ -66,14 +93,29 @@ const Applications = () => {
                         {new Date(app.appliedAt).toLocaleDateString()}
                       </p>
                     </div>
-                    <a
-                      href={app.resumeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 bg-[#5c73db] text-white rounded-md hover:bg-[#4a5ec1] transition"
-                    >
-                      View Resume
-                    </a>
+
+                    <div className="flex gap-3 items-center">
+                      <button
+                        onClick={() => handleOpenResume(app._id, app.resumeUrl)}
+                        className="px-4 py-2 bg-[#5c73db] text-white rounded-md hover:bg-[#4a5ec1] transition"
+                      >
+                        View Resume
+                      </button>
+                      <button
+                        onClick={() =>
+                          handleStatusUpdate(app._id, "shortlisted")
+                        }
+                        className="px-3 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
+                      >
+                        Shortlist
+                      </button>
+                      <button
+                        onClick={() => handleStatusUpdate(app._id, "rejected")}
+                        className="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+                      >
+                        Reject
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>

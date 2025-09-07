@@ -1,3 +1,4 @@
+const applicationModel = require("../models/applicationModel");
 const { jobModel } = require("../models/jobModel");
 
 const createJob = async (req, res) => {
@@ -103,12 +104,10 @@ const getJobById = async (req, res) => {
 const getMyJobs = async (req, res) => {
   try {
     if (req.user.role !== "Company") {
-      return res
-        .status(403)
-        .json({
-          success: false,
-          message: "Only companies can view their jobs",
-        });
+      return res.status(403).json({
+        success: false,
+        message: "Only companies can view their jobs",
+      });
     }
 
     const jobs = await jobModel
@@ -121,4 +120,31 @@ const getMyJobs = async (req, res) => {
   }
 };
 
-module.exports = { createJob, getJob, getJobById, getMyJobs };
+const getCompanyStats = async (req, res) => {
+  try {
+    // All jobs by logged-in company
+    const jobs = await jobModel.find({ postedBy: req.user.id });
+    const jobIds = jobs.map((job) => job._id);
+
+    // Applications count
+    const applicationsCount = await applicationModel.countDocuments({
+      jobId: { $in: jobIds },
+    });
+
+    // Active jobs (approved/published only)
+    const activeJobs = jobs.filter((job) => job.status === true).length;
+
+    res.json({
+      success: true,
+      stats: {
+        jobsPosted: jobs.length,
+        applications: applicationsCount,
+        activeJobs,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { createJob, getJob, getJobById, getMyJobs, getCompanyStats };

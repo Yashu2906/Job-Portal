@@ -5,6 +5,7 @@ const {
   getJob,
   getJobById,
   getMyJobs,
+  getCompanyStats,
 } = require("../controllers/jobController");
 const roleMiddleWare = require("../middlewares/roleMiddleware");
 
@@ -17,6 +18,12 @@ jobRouter.post(
   createJob
 );
 jobRouter.get("/my", authMiddleware, getMyJobs);
+jobRouter.get(
+  "/company/stats",
+  authMiddleware,
+  roleMiddleWare(["Company"]),
+  getCompanyStats
+);
 
 jobRouter.get("/", getJob);
 jobRouter.get("/:id", getJobById);
