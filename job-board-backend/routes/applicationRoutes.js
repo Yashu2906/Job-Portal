@@ -6,9 +6,13 @@ const {
   getApplicationByJob,
   getUserApplications,
 } = require("../controllers/applicationController");
+const {
+  getCompanyApplications,
+} = require("../controllers/getCompanyApplications");
 const applicationRouter = express.Router();
 
 applicationRouter.post("/apply", userAuth, upload.single("resume"), applyJob);
 applicationRouter.get("/company/:jobId", userAuth, getApplicationByJob);
 applicationRouter.get("/user", userAuth, getUserApplications);
+applicationRouter.get("/company", userAuth, getCompanyApplications);
 module.exports = applicationRouter;

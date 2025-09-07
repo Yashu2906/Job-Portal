@@ -22,7 +22,7 @@ const jobSchema = new mongoose.Schema({
     ref: "user",
     required: true,
   },
-  status: { type: Boolean, default: false },
+  status: { type: Boolean, default: true },
   createdAt: { type: Date, default: Date.now },
 });
 
