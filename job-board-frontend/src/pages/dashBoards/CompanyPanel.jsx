@@ -16,12 +16,14 @@ const CompanyLayout = () => {
       <Navbar />
       <div className="flex h-screen">
         {/* Sidebar */}
-        <div className="w-64 bg-[#5c73db] text-white flex flex-col p-6">
-          <h2 className="text-2xl font-bold mb-6">Company Panel</h2>
-          <nav className="flex flex-col gap-4">
+        <div className="w-[18%] bg-[#5c73db] text-white flex flex-col p-6 rounded-2xl">
+          <h2 className="flex justify-center text-3xl font-bold mb-6">
+            Company Panel
+          </h2>
+          <nav className="flex flex-col gap-6 ">
             <button
               onClick={() => handleNavClick("Dashboard", "/company")}
-              className={`px-4 py-2 rounded-lg transition ${
+              className={` py-4 rounded-xl text-xl font-semibold transition ${
                 active === "Dashboard"
                   ? "bg-white text-[#5c73db] font-bold"
                   : "hover:bg-[#4a5ec1]"
@@ -31,7 +33,7 @@ const CompanyLayout = () => {
             </button>
             <button
               onClick={() => handleNavClick("Post Job", "/company/post-job")}
-              className={`px-4 py-2 rounded-lg transition ${
+              className={`py-4 rounded-xl text-xl font-semibold transition ${
                 active === "Post Job"
                   ? "bg-white text-[#5c73db] font-bold"
                   : "hover:bg-[#4a5ec1]"
@@ -41,7 +43,7 @@ const CompanyLayout = () => {
             </button>
             <button
               onClick={() => handleNavClick("My Jobs", "/company/my-jobs")}
-              className={`px-4 py-2 rounded-lg transition ${
+              className={`py-4 rounded-xl text-xl font-semibold transition ${
                 active === "My Jobs"
                   ? "bg-white text-[#5c73db] font-bold"
                   : "hover:bg-[#4a5ec1]"
@@ -53,7 +55,7 @@ const CompanyLayout = () => {
               onClick={() =>
                 handleNavClick("Applications", "/company/applications")
               }
-              className={`px-4 py-2 rounded-lg transition ${
+              className={`py-4 rounded-xl text-xl font-semibold transition ${
                 active === "Applications"
                   ? "bg-white text-[#5c73db] font-bold"
                   : "hover:bg-[#4a5ec1]"
@@ -63,7 +65,7 @@ const CompanyLayout = () => {
             </button>
             <button
               onClick={() => handleNavClick("Profile", "/company/profile")}
-              className={`px-4 py-2 rounded-lg transition ${
+              className={`py-4 rounded-xl text-xl font-semibold transition ${
                 active === "Profile"
                   ? "bg-white text-[#5c73db] font-bold"
                   : "hover:bg-[#4a5ec1]"

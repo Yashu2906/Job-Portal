@@ -46,7 +46,7 @@ const createJob = async (req, res) => {
       jobType,
       experienceLevel,
       postedBy: req.user._id,
-      status: false, // default false (pending approval)
+      status: true, // default false (pending approval)
     });
 
     await newJob.save();

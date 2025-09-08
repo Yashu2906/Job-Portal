@@ -1,7 +1,11 @@
 import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faLock,
+} from "@fortawesome/free-solid-svg-icons";
 import { motion, AnimatePresence } from "framer-motion";
 import { AuthContext } from "../context/authContext";
 import { data, useNavigate } from "react-router-dom";
@@ -49,7 +53,12 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff]">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff] ">
+      <img
+        src="./src/assets/logo.png"
+        alt="Logo"
+        className="h-25 cursor-pointer  mb-5"
+      />
       <div className="relative w-[1250px] h-[800px] bg-white overflow-hidden rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex">
         {/* Left Side - Login */}
         <form
@@ -206,7 +215,7 @@ const Login = () => {
                   onClick={() => setIsLogin(false)}
                   className="px-8 py-4 w-[75%] bg-[#5c73db] text-[#fff] border-[2px] text-[24px] font-bold rounded-2xl cursor-pointer"
                 >
-                  Login
+                  Login <FontAwesomeIcon icon={faArrowRight} />
                 </button>
               </motion.div>
             ) : (
@@ -224,7 +233,7 @@ const Login = () => {
                   onClick={() => setIsLogin(true)}
                   className="px-8 py-4 w-[75%] bg-[#5c73db] text-[#fff] border-[2px] text-[24px] font-bold rounded-2xl cursor-pointer"
                 >
-                  Register
+                  <FontAwesomeIcon icon={faArrowLeft} /> Register
                 </button>
               </motion.div>
             )}

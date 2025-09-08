@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 const JobCard = ({ filters }) => {
   const [jobs, setJobs] = useState([]);
@@ -9,10 +11,23 @@ const JobCard = ({ filters }) => {
 
   const backendUrl = "http://localhost:4000";
 
+  // ✅ Helper function to calculate "Posted X days ago"
+  const getPostedAgo = (date) => {
+    const postedDate = new Date(date);
+    const diffMs = Date.now() - postedDate.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) return "today";
+    if (diffDays === 1) return "1 day ago";
+    if (diffDays < 7) return `${diffDays} days ago`;
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+    return `${Math.floor(diffDays / 30)} months ago`;
+  };
+
   const fetchJobs = async () => {
     try {
       const response = await axios.get(`${backendUrl}/api/job`, {
-        params: filters, // ✅ Send filters as query
+        params: filters,
       });
       if (response.data.success) {
         setJobs(response.data.jobs);
@@ -39,7 +54,7 @@ const JobCard = ({ filters }) => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // ✅ send JWT token
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -60,93 +75,143 @@ const JobCard = ({ filters }) => {
   }, [filters]);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
       {jobs.map((job) => (
-        <div key={job._id} className="p-6 border rounded-lg shadow-md">
-          <h1 className="text-xl font-bold">{job.title}</h1>
-          <p className="text-gray-600">
+        <div
+          key={job._id}
+          className="p-8 border border-gray-300 rounded-2xl shadow-md hover:shadow-xl transition-transform transform hover:scale-[1.001] bg-white"
+        >
+          {/* Job Title */}
+          <h1 className="text-3xl font-bold text-[#5c73db] mb-2">
+            {job.title}
+          </h1>
+
+          {/* Company + Location */}
+          <p className="text-2xl text-gray-600 mb-2">
             {job.company} • {job.location}
           </p>
-          <p className="mt-2">
-            {job.jobType} • {job.salary}
+
+          {/* Job Info */}
+          <p className="text-xl text-gray-700 mb-3">
+            <span className="font-semibold">Type:</span> {job.jobType} <br />
+            <span className="font-semibold">Salary:</span> {job.salary} /month
           </p>
-          <p className="text-sm italic">Posted {job.postedAgo}</p>
-          <div className="flex gap-4 mt-4">
+
+          {/* Posted Time */}
+          <p className="text-lg italic text-gray-500">
+            Posted {getPostedAgo(job.createdAt)}
+          </p>
+
+          {/* Button */}
+          <div className="mt-5">
             <button
               onClick={() => setSelectedJob(job)}
-              className="px-4 py-2 bg-[#5c73db] text-white rounded-md"
+              className="w-full py-4 bg-[#5c73db] text-white text-xl font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
             >
-              View
+              View Details <FontAwesomeIcon icon={faEye} />
             </button>
           </div>
         </div>
       ))}
 
-      {/* ✅ Modal outside map */}
+      {/* ✅ Modal for job details */}
       {selectedJob && (
-        <div className="fixed inset-0 backdrop-blur-xs flex justify-center items-center z-50">
-          <div className="bg-white p-8 rounded-2xl shadow-xl w-[600px] max-h-[90vh] overflow-y-auto relative">
+        <div className="fixed inset-0 backdrop-blur-xs flex justify-center items-center z-50 ">
+          <div className="bg-white p-8 rounded-2xl shadow-xl w-[50%] max-h-[90vh] overflow-y-auto relative">
             {/* Close button */}
             <button
               onClick={() => setSelectedJob(null)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-black text-xl"
+              className="absolute top-4 right-4 text-[gray-500] hover:text-black text-3xl"
             >
               ✖
             </button>
 
             {/* Job Title */}
-            <h2 className="text-3xl font-bold text-gray-800">
+            <h2 className="text-4xl text-[#5c73db] font-bold mb-5">
               {selectedJob.title}
             </h2>
-            <p className="text-lg text-gray-600 mt-2">
-              {selectedJob.company} • {selectedJob.location}
+            <p className="text-2xl text-gray-600 mt-2">
+              {selectedJob.company}
+              {"  "} • {selectedJob.location} • {selectedJob.jobType}
             </p>
 
             {/* Job Info */}
             <div className="mt-4">
-              <p className="text-lg font-medium">
-                {selectedJob.jobType} • {selectedJob.salary}
+              <p className="text-xl font-medium">
+                Salary : {selectedJob.salary}/month
               </p>
-              <p className="text-sm italic text-gray-500">
-                Posted {selectedJob.postedAgo}
+              <p className="text-lg italic text-gray-500">
+                Posted {getPostedAgo(selectedJob.createdAt)}
               </p>
             </div>
 
             {/* Description */}
             <div className="mt-6">
-              <h3 className="text-xl font-semibold">Job Description</h3>
-              <p className="mt-2 text-base text-gray-700 leading-relaxed">
+              <h3 className="text-3xl font-semibold">Job Description</h3>
+              <p className="mt-2 text-xl text-gray-700 leading-relaxed whitespace-pre-line">
                 {selectedJob.description}
               </p>
             </div>
 
-            {/* Requirements */}
             {selectedJob.requirements && (
               <div className="mt-6">
-                <h3 className="text-xl font-semibold">Requirements</h3>
-                <p className="mt-2 text-base text-gray-700 leading-relaxed">
-                  {selectedJob.requirements}
-                </p>
+                <h3 className="text-2xl font-semibold">Requirements</h3>
+                <div className="mt-3 flex flex-wrap gap-3">
+                  {(Array.isArray(selectedJob.requirements)
+                    ? selectedJob.requirements
+                    : selectedJob.requirements.split("\n")
+                  ) // fallback if it's a string
+                    .map((req, index) => (
+                      <span
+                        key={index}
+                        className="px-4 py-2 bg-[#eef2ff] text-[#4a5ec1] text-base font-medium rounded-lg shadow-sm"
+                      >
+                        {req}
+                      </span>
+                    ))}
+                </div>
               </div>
             )}
 
             {/* Resume Upload */}
             <div className="mt-6">
-              <label className="block text-lg font-medium text-gray-800">
+              <label className="block text-xl font-medium text-gray-800 mb-3">
                 Upload Resume:
               </label>
-              <input
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={(e) => setResume(e.target.files[0])}
-                className="mt-3 border border-gray-300 p-3 rounded-lg w-full text-base"
-              />
+
+              <div className="flex items-center justify-between border  rounded-lg p-3 bg-white shadow-sm hover:shadow-md transition">
+                {/* Hidden file input */}
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx"
+                  id="resumeUpload"
+                  onChange={(e) => setResume(e.target.files[0])}
+                  className="hidden"
+                />
+
+                {/* Styled label as button */}
+                <label
+                  htmlFor="resumeUpload"
+                  className="cursor-pointer px-5 py-2 bg-[#5c73db] text-white font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
+                >
+                  Choose File
+                </label>
+
+                {/* Show selected file name */}
+                <span className="ml-4 text-gray-600 text-lg truncate">
+                  {resume ? resume.name : "No file chosen"}
+                </span>
+              </div>
+
+              <p className="mt-2 text-lg text-gray-500">
+                Accepted formats: .pdf, .doc, .docx
+              </p>
             </div>
 
             {/* Apply Button */}
             <button
               onClick={() => handleApply(selectedJob._id)}
-              className="mt-6 w-full px-6 py-3 bg-green-600 text-white text-lg font-semibold rounded-lg hover:bg-green-700 transition"
+              className="mt-6 w-full cursor-pointer px-5 py-5 bg-[#5c73db] text-white text-xl font-bold rounded-xl hover:bg-[#4a5ec1] transition"
             >
               Apply Now
             </button>

@@ -36,11 +36,11 @@ const CitySearchBox = () => {
         value={query}
         onChange={(e) => handleChange(e.target.value)}
         placeholder="Search Indian city..."
-        className="w-full px-4 py-3 border rounded-lg shadow-md"
+        className="w-full px-4 py-3 border rounded-lg shadow-md text-xl"
       />
 
       {suggestions.length > 0 && (
-        <ul className="absolute w-full mt-2 bg-white border rounded-lg shadow-md z-10 max-h-60 overflow-y-auto">
+        <ul className="absolute w-full mt-2 bg-white border rounded-lg shadow-md z-10 max-h-60 overflow-y-auto text-xl">
           {suggestions.map((city, i) => (
             <li
               key={i}

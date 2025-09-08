@@ -34,26 +34,26 @@ const CompanyDashboard = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-[#5c73db] mb-6">Dashboard</h1>
-      <p className="text-lg">
+      <h1 className="text-4xl font-bold text-[#5c73db] mb-6">Dashboard</h1>
+      <p className="text-2xl">
         Welcome to your company dashboard. Here you can manage jobs, view
         applications, and update your company profile.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-        <div className="p-6 border rounded-lg shadow-md bg-white">
-          <h3 className="text-xl font-semibold">Jobs Posted</h3>
-          <p className="text-[#5c73db] text-2xl mt-2">{stats.jobsPosted}</p>
+        <div className="p-8 border border-gray-300 rounded-lg shadow-md bg-white">
+          <h3 className="text-2xl font-semibold">Jobs Posted</h3>
+          <p className="text-[#5c73db] text-3xl mt-4">{stats.jobsPosted}</p>
         </div>
 
-        <div className="p-6 border rounded-lg shadow-md bg-white">
-          <h3 className="text-xl font-semibold">Applications</h3>
-          <p className="text-[#5c73db] text-2xl mt-2">{stats.applications}</p>
+        <div className="p-8 border border-gray-300 rounded-lg shadow-md bg-white">
+          <h3 className="text-2xl font-semibold">Applications</h3>
+          <p className="text-[#5c73db] text-3xl mt-4">{stats.applications}</p>
         </div>
 
-        <div className="p-6 border rounded-lg shadow-md bg-white">
-          <h3 className="text-xl font-semibold">Active Jobs</h3>
-          <p className="text-[#5c73db] text-2xl mt-2">{stats.activeJobs}</p>
+        <div className="p-8 border border-gray-300 rounded-lg shadow-md bg-white">
+          <h3 className="text-2xl font-semibold">Active Jobs</h3>
+          <p className="text-[#5c73db] text-3xl mt-4">{stats.activeJobs}</p>
         </div>
       </div>
     </div>
