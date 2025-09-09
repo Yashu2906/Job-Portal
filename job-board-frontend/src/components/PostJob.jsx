@@ -16,7 +16,6 @@ const PostJob = () => {
 
   const backendUrl = "http://localhost:4000";
 
-  // ✅ Add/Remove Requirements
   const handleRequirementChange = (index, value) => {
     const updated = [...job.requirements];
     updated[index] = value;
@@ -32,7 +31,6 @@ const PostJob = () => {
     setJob({ ...job, requirements: updated });
   };
 
-  // ✅ Submit Form
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -60,65 +58,64 @@ const PostJob = () => {
   };
 
   return (
-    <div className="flex flex-col ml-10">
-      <h1 className="text-4xl font-bold text-[#5c73db] mb-6">Post a Job</h1>
+    <div className="flex flex-col px-4 sm:px-6 lg:px-10">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#5c73db] mb-6">
+        Post a Job
+      </h1>
+
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-10 rounded-lg shadow-md max-w-7xl grid grid-cols-2 gap-8"
+        className="bg-white p-6 sm:p-8 lg:p-10 rounded-lg shadow-md max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8"
       >
         {/* Left Side */}
-        <div className="space-y-3">
-          {/* Title */}
+        <div className="space-y-4">
           <label className="block">
-            <span className=" text-2xl">Job Title</span>
+            <span className="text-lg sm:text-xl lg:text-2xl">Job Title</span>
             <input
               type="text"
               value={job.title}
               onChange={(e) => setJob({ ...job, title: e.target.value })}
-              className="w-full mt-2 px-4 py-3 text-xl border rounded-md border-gray-400"
+              className="w-full mt-2 px-3 py-2 sm:px-4 sm:py-3 text-base sm:text-lg lg:text-xl border rounded-md border-gray-400"
               required
             />
           </label>
 
-          {/* Company */}
           <label className="block">
-            <span className="text-2xl">Company</span>
+            <span className="text-lg sm:text-xl lg:text-2xl">Company</span>
             <input
               type="text"
               value={job.company}
               onChange={(e) => setJob({ ...job, company: e.target.value })}
-              className="w-full mt-2 px-4 py-3 text-xl border rounded-md border-gray-400"
+              className="w-full mt-2 px-3 py-2 sm:px-4 sm:py-3 text-base sm:text-lg lg:text-xl border rounded-md border-gray-400"
               required
             />
           </label>
 
-          {/* Location */}
           <label className="block">
-            <span className="text-2xl">Location</span>
+            <span className="text-lg sm:text-xl lg:text-2xl">Location</span>
             <input
               type="text"
               value={job.location}
               onChange={(e) => setJob({ ...job, location: e.target.value })}
-              className="w-full mt-2 px-4 py-3 text-xl border rounded-md border-gray-400"
+              className="w-full mt-2 px-3 py-2 sm:px-4 sm:py-3 text-base sm:text-lg lg:text-xl border rounded-md border-gray-400"
               required
             />
           </label>
 
-          {/* Salary */}
           <label className="block">
-            <span className="text-2xl">Salary</span>
+            <span className="text-lg sm:text-xl lg:text-2xl">Salary</span>
             <input
               type="number"
               value={job.salary}
               onChange={(e) => setJob({ ...job, salary: e.target.value })}
-              className="w-full mt-2 px-4 py-3 text-xl border rounded-md border-gray-400"
+              className="w-full mt-2 px-3 py-2 sm:px-4 sm:py-3 text-base sm:text-lg lg:text-xl border rounded-md border-gray-400"
               required
             />
           </label>
 
           {/* Requirements */}
           <div>
-            <span className="text-2xl">Requirements</span>
+            <span className="text-lg sm:text-xl lg:text-2xl">Requirements</span>
             {job.requirements.map((req, index) => (
               <div key={index} className="flex gap-2 mt-2">
                 <input
@@ -127,13 +124,13 @@ const PostJob = () => {
                   onChange={(e) =>
                     handleRequirementChange(index, e.target.value)
                   }
-                  className="w-full mt-1 px-4 py-3 text-xl border rounded-md border-gray-400"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 text-base sm:text-lg lg:text-xl border rounded-md border-gray-400"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => removeRequirement(index)}
-                  className="px-5 py-1 mt-2 bg-[#5c73db] text-white text-xl font-bold rounded-md cursor-pointer"
+                  className="px-4 sm:px-5 py-1 sm:py-2 bg-[#5c73db] text-white text-lg sm:text-xl font-bold rounded-md cursor-pointer"
                 >
                   ✕
                 </button>
@@ -142,7 +139,7 @@ const PostJob = () => {
             <button
               type="button"
               onClick={addRequirement}
-              className="mt-3 px-5 py-3 bg-[#5c73db] text-white rounded-lg cursor-pointer"
+              className="mt-3 px-4 sm:px-5 py-2 sm:py-3 bg-[#5c73db] text-white rounded-lg cursor-pointer"
             >
               + Add Requirement
             </button>
@@ -150,14 +147,13 @@ const PostJob = () => {
         </div>
 
         {/* Right Side */}
-        <div className="space-y-5">
-          {/* Job Type */}
+        <div className="space-y-4">
           <label className="block">
-            <span className="text-2xl">Job Type</span>
+            <span className="text-lg sm:text-xl lg:text-2xl">Job Type</span>
             <select
               value={job.jobType}
               onChange={(e) => setJob({ ...job, jobType: e.target.value })}
-              className="w-full mt-2 px-4 py-3 text-xl border rounded-md border-gray-400"
+              className="w-full mt-2 px-3 py-2 sm:px-4 sm:py-3 text-base sm:text-lg lg:text-xl border rounded-md border-gray-400"
               required
             >
               <option value="">Select</option>
@@ -168,15 +164,16 @@ const PostJob = () => {
             </select>
           </label>
 
-          {/* Experience Level */}
           <label className="block">
-            <span className="text-2xl">Experience Level</span>
+            <span className="text-lg sm:text-xl lg:text-2xl">
+              Experience Level
+            </span>
             <select
               value={job.experienceLevel}
               onChange={(e) =>
                 setJob({ ...job, experienceLevel: e.target.value })
               }
-              className="w-full mt-2 px-4 py-3 text-xl border rounded-md border-gray-400"
+              className="w-full mt-2 px-3 py-2 sm:px-4 sm:py-3 text-base sm:text-lg lg:text-xl border rounded-md border-gray-400"
               required
             >
               <option value="">Select</option>
@@ -186,24 +183,23 @@ const PostJob = () => {
             </select>
           </label>
 
-          {/* Description */}
           <label className="block">
-            <span className="text-2xl">Description</span>
+            <span className="text-lg sm:text-xl lg:text-2xl">Description</span>
             <textarea
               value={job.description}
               onChange={(e) => setJob({ ...job, description: e.target.value })}
               rows="5"
-              className="w-full text-xl  mt-2 px-4 py-2 border rounded-md border-gray-400"
+              className="w-full text-base sm:text-lg lg:text-xl mt-2 px-3 py-2 sm:px-4 sm:py-3 border rounded-md border-gray-400"
               required
             />
           </label>
         </div>
 
-        {/* Submit Button (Centered at bottom across both columns) */}
-        <div className="col-span-2 flex justify-center mt-6">
+        {/* Submit Button */}
+        <div className="col-span-1 lg:col-span-2 flex justify-center mt-6">
           <button
             type="submit"
-            className="px-20 py-4 bg-[#5c73db] text-white text-xl font-bold rounded-xl hover:bg-[#4a5ec1] transition cursor-pointer"
+            className="px-10 sm:px-16 lg:px-20 py-3 sm:py-4 bg-[#5c73db] text-white text-lg sm:text-xl font-bold rounded-xl hover:bg-[#4a5ec1] transition cursor-pointer"
           >
             Post Job
           </button>

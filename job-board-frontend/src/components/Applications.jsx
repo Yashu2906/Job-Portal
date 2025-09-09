@@ -25,7 +25,6 @@ const Applications = () => {
     }
   };
 
-  // Auto-update status when resume opened
   const handleOpenResume = async (appId, resumeUrl) => {
     const token = localStorage.getItem("token");
     try {
@@ -34,14 +33,24 @@ const Applications = () => {
         { status: "reviewed" },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      fetchApplications(); // refresh UI
-      window.open(resumeUrl, "_blank"); // open resume
+      fetchApplications();
+
+      const downloadUrl = resumeUrl.replace(
+        "/upload/",
+        "/upload/fl_attachment/"
+      );
+
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.setAttribute("download", "resume");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
     } catch (error) {
-      toast.error("Failed to mark as reviewed");
+      toast.error("Failed to download resume");
     }
   };
 
-  // Manual status update
   const handleStatusUpdate = async (appId, status) => {
     const token = localStorage.getItem("token");
     try {
@@ -59,45 +68,54 @@ const Applications = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-[#5c73db] mb-6">Applications</h1>
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#5c73db] mb-6">
+        Applications
+      </h1>
 
       {loading ? (
-        <p>Loading applications...</p>
+        <p className="text-lg sm:text-xl">Loading applications...</p>
       ) : Object.keys(applications).length === 0 ? (
-        <p className="text-lg">No applications found for your jobs.</p>
+        <p className="text-lg sm:text-xl">
+          No applications found for your jobs.
+        </p>
       ) : (
         <div className="space-y-8">
           {Object.entries(applications).map(([jobTitle, apps]) => (
-            <div key={jobTitle} className="bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+            <div
+              key={jobTitle}
+              className="bg-white border border-gray-400 p-4 sm:p-6 rounded-lg shadow-lg"
+            >
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-800 mb-4">
                 {jobTitle}
               </h2>
               <div className="space-y-4">
                 {apps.map((app) => (
                   <div
                     key={app._id}
-                    className="p-4 border rounded-lg flex justify-between items-center"
+                    className="p-4 sm:p-6 border border-gray-300 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
                   >
-                    <div>
-                      <p className="font-medium text-gray-700">
+                    {/* Applicant Info */}
+                    <div className="flex flex-col gap-2">
+                      <p className="font-medium text-gray-700 text-base sm:text-lg md:text-xl">
                         {app.applicant?.name} ({app.applicant?.email})
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-base sm:text-lg text-gray-600">
                         Status:{" "}
                         <span className="capitalize font-semibold">
                           {app.status}
                         </span>
                       </p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm sm:text-base text-gray-500">
                         Applied on{" "}
                         {new Date(app.appliedAt).toLocaleDateString()}
                       </p>
                     </div>
 
-                    <div className="flex gap-3 items-center">
+                    {/* Action Buttons */}
+                    <div className="flex  sm:flex-row gap-3 w-full sm:w-auto">
                       <button
                         onClick={() => handleOpenResume(app._id, app.resumeUrl)}
-                        className="px-4 py-2 bg-[#5c73db] text-white rounded-md hover:bg-[#4a5ec1] transition"
+                        className="px-4 py-2 sm:px-6 sm:py-3 text-white text-sm sm:text-lg font-semibold rounded-lg bg-[#5c73db] hover:bg-[#4a5ec1] transition"
                       >
                         View Resume
                       </button>
@@ -105,13 +123,13 @@ const Applications = () => {
                         onClick={() =>
                           handleStatusUpdate(app._id, "shortlisted")
                         }
-                        className="px-3 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
+                        className="px-4 py-2 sm:px-6 sm:py-3 text-white text-sm sm:text-lg font-semibold rounded-lg bg-green-500 hover:bg-green-600 transition"
                       >
                         Shortlist
                       </button>
                       <button
                         onClick={() => handleStatusUpdate(app._id, "rejected")}
-                        className="px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+                        className="px-4 py-2 sm:px-6 sm:py-3 text-white text-sm sm:text-lg font-semibold rounded-lg bg-red-500 hover:bg-red-600 transition"
                       >
                         Reject
                       </button>

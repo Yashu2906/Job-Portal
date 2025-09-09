@@ -62,9 +62,10 @@ const createJob = async (req, res) => {
 
 const getJob = async (req, res) => {
   try {
-    const { search, jobType, experienceLevel, location } = req.query; // use query for filters
-    const query = { status: true }; // only approved jobs
+    const { search, jobType, experienceLevel, location } = req.query;
+    const query = { status: true }; // ✅ only approved jobs
 
+    // 🔍 Search filter
     if (search) {
       query.$or = [
         { title: { $regex: search, $options: "i" } },
@@ -74,10 +75,23 @@ const getJob = async (req, res) => {
       ];
     }
 
-    if (jobType) query.jobType = jobType;
-    if (experienceLevel) query.experienceLevel = experienceLevel;
-    if (location) query.location = location;
+    // jobController.js
+    if (jobType) {
+      const jobTypes = jobType.split(","); // ✅ handles "Full-time,Part-time"
+      query.jobType = { $in: jobTypes };
+    }
 
+    if (experienceLevel) {
+      const levels = experienceLevel.split(",");
+      query.experienceLevel = { $in: levels };
+    }
+
+    if (location) {
+      const locations = location.split(",");
+      query.location = { $in: locations };
+    }
+
+    // ✅ Fetch filtered jobs
     const jobs = await jobModel.find(query).sort({ createdAt: -1 });
 
     return res.status(200).json({ success: true, count: jobs.length, jobs });

@@ -11,6 +11,7 @@ import Profile from "./components/Profile";
 import CompanyDashboard from "./components/DashBoard";
 import CompanyLayout from "./pages/dashBoards/CompanyPanel";
 import PostJob from "./components/PostJob";
+import UserApplications from "./components/UserApplications";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="myapplications" element={<UserApplications />} />
 
         <Route path="/company" element={<CompanyLayout />}>
           <Route index element={<CompanyDashboard />} />

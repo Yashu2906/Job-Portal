@@ -17,7 +17,7 @@ const applyJob = async (req, res) => {
     const uploadStream = () =>
       new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
-          { resource_type: "auto", folder: "Resumes" },
+          { resource_type: "raw", folder: "Resumes" },
           (error, result) => {
             if (error) reject(error);
             else resolve(result);

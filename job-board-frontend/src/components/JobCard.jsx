@@ -24,11 +24,20 @@ const JobCard = ({ filters }) => {
     return `${Math.floor(diffDays / 30)} months ago`;
   };
 
+  // JobCard.jsx
   const fetchJobs = async () => {
     try {
+      const queryParams = {
+        ...filters,
+        jobType: filters.jobType.join(","), // ✅ fix
+        experienceLevel: filters.experienceLevel.join(","), // ✅ fix
+        location: filters.location.join(","), // ✅ fix
+      };
+
       const response = await axios.get(`${backendUrl}/api/job`, {
-        params: filters,
+        params: queryParams,
       });
+
       if (response.data.success) {
         setJobs(response.data.jobs);
       }
@@ -79,34 +88,34 @@ const JobCard = ({ filters }) => {
       {jobs.map((job) => (
         <div
           key={job._id}
-          className="p-8 border border-gray-300 rounded-2xl shadow-md hover:shadow-xl transition-transform transform hover:scale-[1.001] bg-white"
+          className="p-6 sm:p-8 border border-gray-300 rounded-2xl shadow-md hover:shadow-xl transition-transform transform hover:scale-[1.001] bg-white"
         >
           {/* Job Title */}
-          <h1 className="text-3xl font-bold text-[#5c73db] mb-2">
+          <h1 className="text-2xl sm:text-2xl lg:text-3xl font-bold text-[#5c73db] mb-2">
             {job.title}
           </h1>
 
           {/* Company + Location */}
-          <p className="text-2xl text-gray-600 mb-2">
+          <p className="text-xl sm:text-lg lg:text-[24px] text-gray-600 mb-2">
             {job.company} • {job.location}
           </p>
 
           {/* Job Info */}
-          <p className="text-xl text-gray-700 mb-3">
+          <p className="text-md sm:text-base lg:text-xl text-gray-700 mb-3">
             <span className="font-semibold">Type:</span> {job.jobType} <br />
             <span className="font-semibold">Salary:</span> {job.salary} /month
           </p>
 
           {/* Posted Time */}
-          <p className="text-lg italic text-gray-500">
+          <p className="text-md sm:text-sm lg:text-lg italic text-gray-500">
             Posted {getPostedAgo(job.createdAt)}
           </p>
 
           {/* Button */}
-          <div className="mt-5">
+          <div className="mt-4 sm:mt-5">
             <button
               onClick={() => setSelectedJob(job)}
-              className="w-full py-4 bg-[#5c73db] text-white text-xl font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
+              className="w-full py-3 sm:py-4 bg-[#5c73db] text-white text-lg sm:text-lg lg:text-xl font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
             >
               View Details <FontAwesomeIcon icon={faEye} />
             </button>
@@ -117,7 +126,7 @@ const JobCard = ({ filters }) => {
       {/* ✅ Modal for job details */}
       {selectedJob && (
         <div className="fixed inset-0 backdrop-blur-xs flex justify-center items-center z-50 ">
-          <div className="bg-white p-8 rounded-2xl shadow-xl w-[50%] max-h-[90vh] overflow-y-auto relative">
+          <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-xl w-[95%] sm:w-[80%] lg:w-[50%] max-h-[90vh] overflow-y-auto relative">
             {/* Close button */}
             <button
               onClick={() => setSelectedJob(null)}

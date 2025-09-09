@@ -33,30 +33,44 @@ const MyJobs = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-[#5c73db] mb-6">My Jobs</h1>
+      {/* Heading */}
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#5c73db] mb-6">
+        My Jobs
+      </h1>
 
       {loading ? (
         <p>Loading jobs...</p>
       ) : jobs.length === 0 ? (
-        <p className="text-lg">You have not posted any jobs yet.</p>
+        <p className="text-lg sm:text-xl">You have not posted any jobs yet.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {jobs.map((job) => (
             <div
               key={job._id}
-              className="p-5 bg-white rounded-lg shadow-md hover:shadow-lg transition"
+              className="p-5 sm:p-6 md:p-7 border border-gray-300 bg-white rounded-lg shadow-md hover:shadow-lg transition"
             >
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">
+              {/* Job Title */}
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-800 mb-2">
                 {job.title}
               </h2>
-              <p className="text-gray-600 mb-2">{job.company}</p>
-              <p className="text-gray-500 text-sm mb-2">
+
+              {/* Company */}
+              <p className="text-lg sm:text-xl text-gray-500 mb-2 font-semibold">
+                {job.company}
+              </p>
+
+              {/* Location & Type */}
+              <p className="text-sm sm:text-base md:text-lg text-gray-500 mb-2">
                 {job.location} • {job.jobType}
               </p>
-              <p className="text-gray-700 mb-2 line-clamp-2">
+
+              {/* Description */}
+              <p className="text-sm sm:text-md md:text-lg text-gray-700 mb-2 line-clamp-2">
                 {job.description}
               </p>
-              <p className="text-sm text-gray-400">
+
+              {/* Date */}
+              <p className="text-sm sm:text-base text-gray-600">
                 Posted on {new Date(job.createdAt).toLocaleDateString()}
               </p>
             </div>
