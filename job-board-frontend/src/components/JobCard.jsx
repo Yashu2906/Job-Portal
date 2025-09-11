@@ -9,6 +9,8 @@ const JobCard = ({ filters }) => {
   const [selectedJob, setSelectedJob] = useState(null);
   const [resume, setResume] = useState(null);
 
+  const [loading, setLoading] = useState(false);
+
   const backendUrl = "http://localhost:4000";
 
   // ✅ Helper function to calculate "Posted X days ago"
@@ -57,6 +59,7 @@ const JobCard = ({ filters }) => {
     formData.append("jobId", jobId);
 
     try {
+      setLoading(true); // start loader
       const response = await axios.post(
         `${backendUrl}/api/application/apply`,
         formData,
@@ -76,6 +79,8 @@ const JobCard = ({ filters }) => {
     } catch (error) {
       console.error("Error applying:", error.response?.data || error.message);
       toast.error(error.message);
+    } finally {
+      setLoading(false); // stop loader
     }
   };
 
@@ -220,9 +225,36 @@ const JobCard = ({ filters }) => {
             {/* Apply Button */}
             <button
               onClick={() => handleApply(selectedJob._id)}
-              className="mt-6 w-full cursor-pointer px-5 py-5 bg-[#5c73db] text-white text-xl font-bold rounded-xl hover:bg-[#4a5ec1] transition"
+              disabled={loading} // disable when loading
+              className="mt-6 w-full cursor-pointer px-5 py-5 bg-[#5c73db] text-white text-xl font-bold rounded-xl hover:bg-[#4a5ec1] transition disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center gap-2"
             >
-              Apply Now
+              {loading ? (
+                <>
+                  <svg
+                    className="animate-spin h-6 w-6 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    ></path>
+                  </svg>
+                  Applying...
+                </>
+              ) : (
+                "Apply Now"
+              )}
             </button>
           </div>
         </div>

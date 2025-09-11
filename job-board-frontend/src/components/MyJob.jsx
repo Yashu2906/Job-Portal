@@ -43,7 +43,7 @@ const MyJobs = () => {
       ) : jobs.length === 0 ? (
         <p className="text-lg sm:text-xl">You have not posted any jobs yet.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto">
           {jobs.map((job) => (
             <div
               key={job._id}

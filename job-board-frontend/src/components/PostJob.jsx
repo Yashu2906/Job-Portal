@@ -58,7 +58,7 @@ const PostJob = () => {
   };
 
   return (
-    <div className="flex flex-col px-4 sm:px-6 lg:px-10">
+    <div className="flex flex-col px-4 sm:px-6 lg:px-10 overflow-y-auto">
       <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#5c73db] mb-6">
         Post a Job
       </h1>

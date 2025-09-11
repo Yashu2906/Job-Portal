@@ -15,13 +15,13 @@ const CompanyLayout = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-screen flex flex-col overflow-hidden">
       <Navbar />
 
       <div className="flex flex-1">
         {/* Sidebar */}
         <div
-          className={`fixed inset-y-0 left-0 z-40 w-64 bg-[#5c73db] text-white transform 
+          className={`fixed inset-y-0 left-0 z-40 w-100 bg-[#5c73db] text-white transform 
           transition-transform duration-300 lg:static lg:translate-x-0 rounded-none lg:rounded-2xl
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
