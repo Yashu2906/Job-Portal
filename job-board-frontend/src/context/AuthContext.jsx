@@ -7,7 +7,7 @@ export const AuthContext = createContext();
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // 👈 new state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -21,7 +21,7 @@ const AuthContextProvider = ({ children }) => {
           localStorage.removeItem("token");
           setUser(null);
         })
-        .finally(() => setLoading(false)); // 👈 stop loading
+        .finally(() => setLoading(false));
     } else {
       setLoading(false);
     }
