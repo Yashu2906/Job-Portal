@@ -14,7 +14,7 @@ const PostJob = () => {
     experienceLevel: "",
   });
 
-  const backendUrl = process.env.VITE_BACKEND_URL;
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const handleRequirementChange = (index, value) => {
     const updated = [...job.requirements];

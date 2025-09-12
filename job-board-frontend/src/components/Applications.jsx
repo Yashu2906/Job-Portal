@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 const Applications = () => {
   const [applications, setApplications] = useState({});
   const [loading, setLoading] = useState(true);
-  const backendUrl = process.env.VITE_BACKEND_URL;
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     fetchApplications();
