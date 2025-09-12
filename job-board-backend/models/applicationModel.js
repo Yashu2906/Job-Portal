@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+
+// Application model
 const applicationSchema = new mongoose.Schema(
   {
     jobId: { type: mongoose.Schema.Types.ObjectId, ref: "job", required: true },
