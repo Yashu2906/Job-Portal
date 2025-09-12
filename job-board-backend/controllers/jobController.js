@@ -1,6 +1,8 @@
 const applicationModel = require("../models/applicationModel");
 const { jobModel } = require("../models/jobModel");
 
+// Job create controller
+
 const createJob = async (req, res) => {
   try {
     const {
@@ -60,12 +62,13 @@ const createJob = async (req, res) => {
   }
 };
 
+// get job controller
+
 const getJob = async (req, res) => {
   try {
     const { search, jobType, experienceLevel, location } = req.query;
-    const query = { status: true }; // ✅ only approved jobs
+    const query = { status: true };
 
-    // 🔍 Search filter
     if (search) {
       query.$or = [
         { title: { $regex: search, $options: "i" } },

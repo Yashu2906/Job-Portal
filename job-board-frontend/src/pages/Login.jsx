@@ -166,7 +166,7 @@ const Login = () => {
 
           {/* Role Selection */}
           <div className="w-full max-w-[500px] mt-6">
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 lg:flex  lg:justify-center ">
               {["JobSeekers", "Company"].map((role) => (
                 <button
                   key={role}
