@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+const backendUrl = process.env.VITE_BACKEND_URL;
+
 const CompanyDashboard = () => {
   const [stats, setStats] = useState({
     jobsPosted: 0,
@@ -11,12 +13,9 @@ const CompanyDashboard = () => {
   const fetchStats = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(
-        "http://localhost:4000/api/job/company/stats",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const res = await axios.get(`${backendUrl}/api/job/company/stats`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (res.data.success) {
         setStats(res.data.stats);
       }

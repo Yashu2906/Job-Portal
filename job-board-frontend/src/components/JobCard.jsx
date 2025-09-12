@@ -11,7 +11,7 @@ const JobCard = ({ filters }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const backendUrl = "http://localhost:4000";
+  const backendUrl = process.env.VITE_BACKEND_URL;
 
   // ✅ Helper function to calculate "Posted X days ago"
   const getPostedAgo = (date) => {

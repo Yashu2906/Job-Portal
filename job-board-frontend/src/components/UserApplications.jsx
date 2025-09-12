@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 
+const backendUrl = process.env.VITE_BACKEND_URL;
+
 const UserApplications = () => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,12 +12,9 @@ const UserApplications = () => {
     const fetchApplications = async () => {
       try {
         const token = localStorage.getItem("token"); // auth token
-        const res = await axios.get(
-          "http://localhost:4000/api/application/user",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const res = await axios.get(`${backendUrl}/api/application/user`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setApplications(res.data.applications);
       } catch (error) {
         console.error("Error fetching applications:", error);
