@@ -4,8 +4,8 @@ import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const AuthContextProvider = ({ children }) => {
-  const backendUrl = "http://localhost:4000";
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // 👈 new state
 
