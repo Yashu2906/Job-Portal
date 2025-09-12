@@ -33,12 +33,10 @@ const CompanyDashboard = () => {
 
   return (
     <div className="p-4 sm:p-6 lg:p-8">
-      {/* Title */}
       <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#5c73db] mb-4 sm:mb-6">
         Dashboard
       </h1>
 
-      {/* Welcome message */}
       <p className="text-base sm:text-lg lg:text-2xl text-gray-700">
         Welcome to your company dashboard. Here you can manage jobs, view
         applications, and update your company profile.

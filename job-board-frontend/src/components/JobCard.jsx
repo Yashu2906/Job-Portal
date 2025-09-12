@@ -80,7 +80,7 @@ const JobCard = ({ filters }) => {
       console.error("Error applying:", error.response?.data || error.message);
       toast.error(error.message);
     } finally {
-      setLoading(false); // stop loader
+      setLoading(false);
     }
   };
 
@@ -95,28 +95,23 @@ const JobCard = ({ filters }) => {
           key={job._id}
           className="p-6 sm:p-8 border border-gray-300 rounded-2xl shadow-md hover:shadow-xl transition-transform transform hover:scale-[1.001] bg-white"
         >
-          {/* Job Title */}
           <h1 className="text-2xl sm:text-2xl lg:text-3xl font-bold text-[#5c73db] mb-2">
             {job.title}
           </h1>
 
-          {/* Company + Location */}
           <p className="text-xl sm:text-lg lg:text-[24px] text-gray-600 mb-2">
             {job.company} • {job.location}
           </p>
 
-          {/* Job Info */}
           <p className="text-md sm:text-base lg:text-xl text-gray-700 mb-3">
             <span className="font-semibold">Type:</span> {job.jobType} <br />
             <span className="font-semibold">Salary:</span> {job.salary} /month
           </p>
 
-          {/* Posted Time */}
           <p className="text-md sm:text-sm lg:text-lg italic text-gray-500">
             Posted {getPostedAgo(job.createdAt)}
           </p>
 
-          {/* Button */}
           <div className="mt-4 sm:mt-5">
             <button
               onClick={() => setSelectedJob(job)}
@@ -128,11 +123,9 @@ const JobCard = ({ filters }) => {
         </div>
       ))}
 
-      {/* ✅ Modal for job details */}
       {selectedJob && (
         <div className="fixed inset-0 backdrop-blur-xs flex justify-center items-center z-50 ">
           <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-xl w-[95%] sm:w-[80%] lg:w-[50%] max-h-[90vh] overflow-y-auto relative">
-            {/* Close button */}
             <button
               onClick={() => setSelectedJob(null)}
               className="absolute top-4 right-4 text-[gray-500] hover:text-black text-3xl"
@@ -140,7 +133,6 @@ const JobCard = ({ filters }) => {
               ✖
             </button>
 
-            {/* Job Title */}
             <h2 className="text-4xl text-[#5c73db] font-bold mb-5">
               {selectedJob.title}
             </h2>
@@ -149,7 +141,6 @@ const JobCard = ({ filters }) => {
               {"  "} • {selectedJob.location} • {selectedJob.jobType}
             </p>
 
-            {/* Job Info */}
             <div className="mt-4">
               <p className="text-xl font-medium">
                 Salary : {selectedJob.salary}/month
@@ -159,7 +150,6 @@ const JobCard = ({ filters }) => {
               </p>
             </div>
 
-            {/* Description */}
             <div className="mt-6">
               <h3 className="text-3xl font-semibold">Job Description</h3>
               <p className="mt-2 text-xl text-gray-700 leading-relaxed whitespace-pre-line">
@@ -174,15 +164,14 @@ const JobCard = ({ filters }) => {
                   {(Array.isArray(selectedJob.requirements)
                     ? selectedJob.requirements
                     : selectedJob.requirements.split("\n")
-                  ) // fallback if it's a string
-                    .map((req, index) => (
-                      <span
-                        key={index}
-                        className="px-4 py-2 bg-[#eef2ff] text-[#4a5ec1] text-base font-medium rounded-lg shadow-sm"
-                      >
-                        {req}
-                      </span>
-                    ))}
+                  ).map((req, index) => (
+                    <span
+                      key={index}
+                      className="px-4 py-2 bg-[#eef2ff] text-[#4a5ec1] text-base font-medium rounded-lg shadow-sm"
+                    >
+                      {req}
+                    </span>
+                  ))}
                 </div>
               </div>
             )}
@@ -203,7 +192,6 @@ const JobCard = ({ filters }) => {
                   className="hidden"
                 />
 
-                {/* Styled label as button */}
                 <label
                   htmlFor="resumeUpload"
                   className="cursor-pointer px-5 py-2 bg-[#5c73db] text-white font-semibold rounded-lg hover:bg-[#4a5ec1] transition"

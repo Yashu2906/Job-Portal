@@ -7,19 +7,16 @@ const Sidebar = ({ filters, setFilters }) => {
       const currentValues = prev[category] || [];
 
       if (currentValues.includes(value)) {
-        // remove if already selected
         return {
           ...prev,
           [category]: currentValues.filter((item) => item !== value),
         };
       } else {
-        // add new value
         return { ...prev, [category]: [...currentValues, value] };
       }
     });
   };
 
-  // helper to check if selected
   const isSelected = (category, value) => {
     return filters[category]?.includes(value);
   };

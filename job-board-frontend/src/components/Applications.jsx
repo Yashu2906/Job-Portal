@@ -110,7 +110,6 @@ const Applications = () => {
                         {new Date(app.appliedAt).toLocaleDateString()}
                       </p>
                     </div>
-
                     {/* Action Buttons */}
                     <div className="flex  sm:flex-row gap-3 w-full sm:w-auto">
                       <button

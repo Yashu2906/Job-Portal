@@ -9,16 +9,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Navbar = () => {
-  const { user, logout, loading } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext); // removed loading
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  if (loading) return <div>Loading...</div>;
 
   return (
     <nav className="shadow-md bg-white">
       <div className="flex items-center justify-between px-6 py-4">
-        {/* Logo */}
         <img
           src="./src/assets/logo.png"
           alt="Logo"
@@ -71,7 +68,7 @@ const Navbar = () => {
       {menuOpen && (
         <div className="md:hidden px-6 pb-4 space-y-4">
           {user ? (
-            <div className="flex gap-8  justify-end ">
+            <div className="flex gap-8 justify-end">
               <h1
                 className="text-xl text-[#5c73db] font-semibold cursor-pointer"
                 onClick={() => {

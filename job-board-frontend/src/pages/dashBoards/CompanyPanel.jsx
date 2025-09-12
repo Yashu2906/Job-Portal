@@ -11,7 +11,7 @@ const CompanyLayout = () => {
   const handleNavClick = (name, path) => {
     setActive(name);
     navigate(path);
-    setSidebarOpen(false); // close sidebar on mobile
+    setSidebarOpen(false);
   };
 
   return (

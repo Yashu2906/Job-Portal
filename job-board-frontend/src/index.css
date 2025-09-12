@@ -6,5 +6,5 @@
 
 html, body {
   height: 100%;
-  overflow: hidden; /* 🚫 disables page scroll */
+  overflow: hidden; /* disables page scroll */
 }
