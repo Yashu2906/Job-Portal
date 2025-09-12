@@ -3,6 +3,7 @@ const cloudinary = require("../config/cloudinary");
 const streamifier = require("streamifier");
 const { jobModel } = require("../models/jobModel");
 
+// Job Apply Controller
 const applyJob = async (req, res) => {
   try {
     const { jobId } = req.body;
@@ -25,8 +26,7 @@ const applyJob = async (req, res) => {
         );
         streamifier.createReadStream(req.file.buffer).pipe(stream);
       });
-
-    // Wait for Cloudinary upload
+    
     const uploadResult = await uploadStream();
 
     // Save application in DB
@@ -48,6 +48,7 @@ const applyJob = async (req, res) => {
   }
 };
 
+// Get Application by Job Controller
 const getApplicationByJob = async (req, res) => {
   try {
     const { jobId } = req.params;
@@ -74,6 +75,7 @@ const getApplicationByJob = async (req, res) => {
   }
 };
 
+// Get user applications controller
 const getUserApplications = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -89,10 +91,11 @@ const getUserApplications = async (req, res) => {
   }
 };
 
+// update application status controller
 const updateApplicationStatus = async (req, res) => {
   try {
-    const { id } = req.params; // applicationId
-    const { status } = req.body; // new status
+    const { id } = req.params; 
+    const { status } = req.body; 
 
     const validStatuses = ["reviewed", "shortlisted", "rejected"];
     if (!validStatuses.includes(status)) {
@@ -108,7 +111,7 @@ const updateApplicationStatus = async (req, res) => {
         .json({ success: false, message: "Application not found" });
     }
 
-    // Ensure company owns the job
+    
     if (app.jobId.postedBy.toString() !== req.user.id) {
       return res
         .status(403)
