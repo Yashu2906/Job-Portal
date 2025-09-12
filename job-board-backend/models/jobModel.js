@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Job Model
 const jobSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
@@ -26,7 +27,6 @@ const jobSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-// ✅ Correct usage: check mongoose.models to prevent recompiling error
 const jobModel = mongoose.models.job || mongoose.model("job", jobSchema);
 
 module.exports = { jobModel };

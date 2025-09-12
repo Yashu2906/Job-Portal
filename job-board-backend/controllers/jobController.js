@@ -1,8 +1,7 @@
 const applicationModel = require("../models/applicationModel");
 const { jobModel } = require("../models/jobModel");
 
-// Job create controller
-
+// Create Job Controller
 const createJob = async (req, res) => {
   try {
     const {
@@ -48,7 +47,7 @@ const createJob = async (req, res) => {
       jobType,
       experienceLevel,
       postedBy: req.user._id,
-      status: true, // default false (pending approval)
+      status: true,
     });
 
     await newJob.save();
@@ -62,13 +61,13 @@ const createJob = async (req, res) => {
   }
 };
 
-// get job controller
-
+// GetJob Controller
 const getJob = async (req, res) => {
   try {
     const { search, jobType, experienceLevel, location } = req.query;
     const query = { status: true };
 
+    //  Search filter
     if (search) {
       query.$or = [
         { title: { $regex: search, $options: "i" } },
@@ -78,9 +77,8 @@ const getJob = async (req, res) => {
       ];
     }
 
-    // jobController.js
     if (jobType) {
-      const jobTypes = jobType.split(","); // ✅ handles "Full-time,Part-time"
+      const jobTypes = jobType.split(",");
       query.jobType = { $in: jobTypes };
     }
 
@@ -94,7 +92,7 @@ const getJob = async (req, res) => {
       query.location = { $in: locations };
     }
 
-    // ✅ Fetch filtered jobs
+    //  Fetch filtered jobs
     const jobs = await jobModel.find(query).sort({ createdAt: -1 });
 
     return res.status(200).json({ success: true, count: jobs.length, jobs });
@@ -103,6 +101,7 @@ const getJob = async (req, res) => {
   }
 };
 
+// GetJob by Id contoller
 const getJobById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -118,6 +117,7 @@ const getJobById = async (req, res) => {
   }
 };
 
+// My Jobs Controller
 const getMyJobs = async (req, res) => {
   try {
     if (req.user.role !== "Company") {
@@ -137,18 +137,16 @@ const getMyJobs = async (req, res) => {
   }
 };
 
+// Company State Controller
 const getCompanyStats = async (req, res) => {
   try {
-    // All jobs by logged-in company
     const jobs = await jobModel.find({ postedBy: req.user.id });
     const jobIds = jobs.map((job) => job._id);
 
-    // Applications count
     const applicationsCount = await applicationModel.countDocuments({
       jobId: { $in: jobIds },
     });
 
-    // Active jobs (approved/published only)
     const activeJobs = jobs.filter((job) => job.status === true).length;
 
     res.json({

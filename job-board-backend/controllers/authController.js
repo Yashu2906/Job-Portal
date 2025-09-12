@@ -4,8 +4,6 @@ const userModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-// Register controller
-
 const register = async (req, res) => {
   const { name, email, password, role } = req.body;
 
@@ -78,7 +76,7 @@ const login = async (req, res) => {
     return res.json({
       success: true,
       message: "Login successful",
-      token, // ⬅️ return token in response
+      token,
       user: { id: user._id, name: user.name, role: user.role },
     });
   } catch (err) {
