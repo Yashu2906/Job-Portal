@@ -22,21 +22,21 @@ const Sidebar = ({ filters, setFilters }) => {
   };
 
   return (
-    <div className="m-4 md:m-8">
-      <div className="w-full bg-white/70 py-6 md:py-10 backdrop-blur-md shadow-2xl rounded-2xl p-4 md:p-6 flex flex-col gap-6 md:gap-8 border border-gray-200">
-        <h2 className="text-2xl md:text-3xl font-bold text-[#7494ec] mb-2">
+    <div className="m-3 md:m-6">
+      <div className="w-full bg-white/70 py-4 md:py-6 backdrop-blur-md shadow-lg rounded-xl p-3 md:p-4 flex flex-col gap-4 md:gap-6 border border-gray-200">
+        <h2 className="text-xl md:text-2xl font-bold text-[#7494ec] mb-1">
           Filters
         </h2>
 
         {/* Job Type */}
         <div>
-          <p className="text-lg md:text-2xl font-semibold mb-3">Job Type</p>
-          <div className="flex flex-wrap gap-2 md:gap-3">
+          <p className="text-base md:text-lg font-semibold mb-2">Job Type</p>
+          <div className="flex flex-wrap gap-2">
             {["Internship", "Part-time", "Full-time", "Remote"].map((type) => (
               <button
                 key={type}
                 onClick={() => handleFilterChange("jobType", type)}
-                className={`py-3 md:py-3 px-6 md:px-5 rounded-xl border text-lg md:text-xl font-medium transition-all duration-300 cursor-pointer
+                className={`py-2 px-4 rounded-lg border text-sm md:text-base font-medium transition-all duration-300 cursor-pointer
               ${
                 isSelected("jobType", type)
                   ? "bg-[#7494ec] text-white shadow-md border-[#7494ec]"
@@ -51,7 +51,7 @@ const Sidebar = ({ filters, setFilters }) => {
 
         {/* Location */}
         <div>
-          <p className="text-lg md:text-2xl font-semibold mb-3">Location</p>
+          <p className="text-base md:text-lg font-semibold mb-2">Location</p>
           <CitySearchBox
             onSelectCity={(city) => handleFilterChange("location", city)}
           />
@@ -59,7 +59,7 @@ const Sidebar = ({ filters, setFilters }) => {
             {filters.location.map((city, index) => (
               <span
                 key={index}
-                className="px-3 py-1 bg-[#eef2ff] text-[#4a5ec1] rounded-lg text-base"
+                className="px-2 py-1 bg-[#eef2ff] text-[#4a5ec1] rounded-md text-sm"
               >
                 {city}
               </span>
@@ -69,13 +69,13 @@ const Sidebar = ({ filters, setFilters }) => {
 
         {/* Experience */}
         <div>
-          <p className="text-lg md:text-2xl font-semibold mb-3">Experience</p>
-          <div className="flex flex-wrap gap-3">
+          <p className="text-base md:text-lg font-semibold mb-2">Experience</p>
+          <div className="flex flex-wrap gap-2">
             {["0-2 years", "2-5 years", "5+ years"].map((exp) => (
               <button
                 key={exp}
                 onClick={() => handleFilterChange("experienceLevel", exp)}
-                className={`grow py-3 px-5  rounded-xl border text-xl font-medium transition-all duration-300 cursor-pointer
+                className={`grow py-2 px-4 rounded-lg border text-sm md:text-base font-medium transition-all duration-300 cursor-pointer
                   ${
                     isSelected("experienceLevel", exp)
                       ? "bg-[#7494ec] text-white shadow-md border-[#7494ec]"

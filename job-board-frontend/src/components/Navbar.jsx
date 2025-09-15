@@ -15,20 +15,21 @@ const Navbar = () => {
 
   return (
     <nav className="shadow-md bg-white">
-      <div className="flex items-center justify-between px-6 py-4">
+      <div className="flex items-center justify-between px-4 py-3">
+        {/* Logo */}
         <img
           src="./src/assets/logo.png"
           alt="Logo"
-          className="h-14 cursor-pointer lg:h-20 "
+          className="h-10 cursor-pointer lg:h-14"
           onClick={() => navigate("/")}
         />
 
         {/* Desktop buttons */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6">
           {user ? (
             <>
               <h1
-                className="text-2xl text-[#5c73db] cursor-pointer font-semibold"
+                className="text-lg text-[#5c73db] cursor-pointer font-semibold"
                 onClick={() => navigate("/myapplications")}
               >
                 Applications
@@ -38,7 +39,7 @@ const Navbar = () => {
                   logout();
                   navigate("/login");
                 }}
-                className="px-12 py-3 bg-[#5c73db] text-white text-xl font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
+                className="px-6 py-2 bg-[#5c73db] text-white text-base font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
               >
                 Logout <FontAwesomeIcon icon={faArrowRightFromBracket} />
               </button>
@@ -46,7 +47,7 @@ const Navbar = () => {
           ) : (
             <button
               onClick={() => navigate("/login")}
-              className="px-14 py-3 bg-[#5c73db] text-white text-xl font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
+              className="px-6 py-2 bg-[#5c73db] text-white text-base font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
             >
               Login
             </button>
@@ -58,7 +59,7 @@ const Navbar = () => {
           <button onClick={() => setMenuOpen(!menuOpen)}>
             <FontAwesomeIcon
               icon={menuOpen ? faTimes : faBars}
-              className="text-2xl  text-gray-800"
+              className="text-xl text-gray-800"
             />
           </button>
         </div>
@@ -66,11 +67,11 @@ const Navbar = () => {
 
       {/* Mobile menu dropdown */}
       {menuOpen && (
-        <div className="md:hidden px-6 pb-4 space-y-4">
+        <div className="md:hidden px-4 pb-3 space-y-3">
           {user ? (
-            <div className="flex gap-8 justify-end">
+            <div className="flex gap-6 justify-end">
               <h1
-                className="text-xl text-[#5c73db] font-semibold cursor-pointer"
+                className="text-base text-[#5c73db] font-semibold cursor-pointer"
                 onClick={() => {
                   navigate("/myapplications");
                   setMenuOpen(false);
@@ -84,7 +85,7 @@ const Navbar = () => {
                   navigate("/login");
                   setMenuOpen(false);
                 }}
-                className="text-[#5c73db] text-xl font-semibold cursor-pointer transition"
+                className="text-[#5c73db] text-base font-semibold cursor-pointer transition"
               >
                 Logout <FontAwesomeIcon icon={faArrowRightFromBracket} />
               </p>
@@ -95,7 +96,7 @@ const Navbar = () => {
                 navigate("/login");
                 setMenuOpen(false);
               }}
-              className="w-full px-6 py-2 bg-[#5c73db] text-white text-lg font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
+              className="w-full px-4 py-2 bg-[#5c73db] text-white text-base font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
             >
               Login
             </button>

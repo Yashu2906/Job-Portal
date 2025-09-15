@@ -8,12 +8,11 @@ const JobCard = ({ filters }) => {
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [resume, setResume] = useState(null);
-
   const [loading, setLoading] = useState(false);
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-  // ✅ Helper function to calculate "Posted X days ago"
+  // ✅ Posted time helper
   const getPostedAgo = (date) => {
     const postedDate = new Date(date);
     const diffMs = Date.now() - postedDate.getTime();
@@ -26,14 +25,14 @@ const JobCard = ({ filters }) => {
     return `${Math.floor(diffDays / 30)} months ago`;
   };
 
-  // JobCard.jsx
+  // ✅ Fetch jobs
   const fetchJobs = async () => {
     try {
       const queryParams = {
         ...filters,
-        jobType: filters.jobType.join(","), // ✅ fix
-        experienceLevel: filters.experienceLevel.join(","), // ✅ fix
-        location: filters.location.join(","), // ✅ fix
+        jobType: filters.jobType.join(","),
+        experienceLevel: filters.experienceLevel.join(","),
+        location: filters.location.join(","),
       };
 
       const response = await axios.get(`${backendUrl}/api/job`, {
@@ -48,6 +47,7 @@ const JobCard = ({ filters }) => {
     }
   };
 
+  // ✅ Apply
   const handleApply = async (jobId) => {
     if (!resume) {
       alert("Please upload your resume!");
@@ -59,7 +59,7 @@ const JobCard = ({ filters }) => {
     formData.append("jobId", jobId);
 
     try {
-      setLoading(true); // start loader
+      setLoading(true);
       const response = await axios.post(
         `${backendUrl}/api/application/apply`,
         formData,
@@ -89,33 +89,33 @@ const JobCard = ({ filters }) => {
   }, [filters]);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
       {jobs.map((job) => (
         <div
           key={job._id}
-          className="p-6 sm:p-8 border border-gray-300 rounded-2xl shadow-md hover:shadow-xl transition-transform transform hover:scale-[1.001] bg-white"
+          className="p-4 sm:p-5 border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-transform bg-white"
         >
-          <h1 className="text-2xl sm:text-2xl lg:text-3xl font-bold text-[#5c73db] mb-2">
+          <h1 className="text-lg sm:text-xl font-bold text-[#5c73db] mb-1">
             {job.title}
           </h1>
 
-          <p className="text-xl sm:text-lg lg:text-[24px] text-gray-600 mb-2">
+          <p className="text-sm sm:text-base text-gray-600 mb-1">
             {job.company} • {job.location}
           </p>
 
-          <p className="text-md sm:text-base lg:text-xl text-gray-700 mb-3">
+          <p className="text-sm text-gray-700 mb-2">
             <span className="font-semibold">Type:</span> {job.jobType} <br />
-            <span className="font-semibold">Salary:</span> {job.salary} /month
+            <span className="font-semibold">Salary:</span> {job.salary}/month
           </p>
 
-          <p className="text-md sm:text-sm lg:text-lg italic text-gray-500">
+          <p className="text-xs italic text-gray-500">
             Posted {getPostedAgo(job.createdAt)}
           </p>
 
-          <div className="mt-4 sm:mt-5">
+          <div className="mt-3">
             <button
               onClick={() => setSelectedJob(job)}
-              className="w-full py-3 sm:py-4 bg-[#5c73db] text-white text-lg sm:text-lg lg:text-xl font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
+              className="w-full py-2 bg-[#5c73db] text-white text-sm font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
             >
               View Details <FontAwesomeIcon icon={faEye} />
             </button>
@@ -123,51 +123,52 @@ const JobCard = ({ filters }) => {
         </div>
       ))}
 
+      {/* Modal */}
       {selectedJob && (
-        <div className="fixed inset-0 backdrop-blur-xs flex justify-center items-center z-50 ">
-          <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-xl w-[95%] sm:w-[80%] lg:w-[50%] max-h-[90vh] overflow-y-auto relative">
+        <div className="fixed inset-0 backdrop-blur-sm flex justify-center items-center z-50">
+          <div className="bg-white p-5 sm:p-6 rounded-xl shadow-xl w-[95%] sm:w-[80%] lg:w-[50%] max-h-[90vh] overflow-y-auto relative">
             <button
               onClick={() => setSelectedJob(null)}
-              className="absolute top-4 right-4 text-[gray-500] hover:text-black text-3xl"
+              className="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl"
             >
               ✖
             </button>
 
-            <h2 className="text-4xl text-[#5c73db] font-bold mb-5">
+            <h2 className="text-2xl text-[#5c73db] font-bold mb-3">
               {selectedJob.title}
             </h2>
-            <p className="text-2xl text-gray-600 mt-2">
-              {selectedJob.company}
-              {"  "} • {selectedJob.location} • {selectedJob.jobType}
+            <p className="text-base text-gray-600 mb-2">
+              {selectedJob.company} • {selectedJob.location} •{" "}
+              {selectedJob.jobType}
             </p>
 
-            <div className="mt-4">
-              <p className="text-xl font-medium">
-                Salary : {selectedJob.salary}/month
+            <div className="mb-3">
+              <p className="text-sm font-medium">
+                Salary: {selectedJob.salary}/month
               </p>
-              <p className="text-lg italic text-gray-500">
+              <p className="text-xs italic text-gray-500">
                 Posted {getPostedAgo(selectedJob.createdAt)}
               </p>
             </div>
 
-            <div className="mt-6">
-              <h3 className="text-3xl font-semibold">Job Description</h3>
-              <p className="mt-2 text-xl text-gray-700 leading-relaxed whitespace-pre-line">
+            <div className="mt-4">
+              <h3 className="text-lg font-semibold">Job Description</h3>
+              <p className="mt-1 text-sm text-gray-700 leading-relaxed whitespace-pre-line">
                 {selectedJob.description}
               </p>
             </div>
 
             {selectedJob.requirements && (
-              <div className="mt-6">
-                <h3 className="text-2xl font-semibold">Requirements</h3>
-                <div className="mt-3 flex flex-wrap gap-3">
+              <div className="mt-4">
+                <h3 className="text-lg font-semibold">Requirements</h3>
+                <div className="mt-2 flex flex-wrap gap-2">
                   {(Array.isArray(selectedJob.requirements)
                     ? selectedJob.requirements
                     : selectedJob.requirements.split("\n")
                   ).map((req, index) => (
                     <span
                       key={index}
-                      className="px-4 py-2 bg-[#eef2ff] text-[#4a5ec1] text-base font-medium rounded-lg shadow-sm"
+                      className="px-3 py-1 bg-[#eef2ff] text-[#4a5ec1] text-xs font-medium rounded-md shadow-sm"
                     >
                       {req}
                     </span>
@@ -177,13 +178,12 @@ const JobCard = ({ filters }) => {
             )}
 
             {/* Resume Upload */}
-            <div className="mt-6">
-              <label className="block text-xl font-medium text-gray-800 mb-3">
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-800 mb-2">
                 Upload Resume:
               </label>
 
-              <div className="flex items-center justify-between border  rounded-lg p-3 bg-white shadow-sm hover:shadow-md transition">
-                {/* Hidden file input */}
+              <div className="flex items-center justify-between border rounded-lg p-2 bg-white shadow-sm hover:shadow-md transition">
                 <input
                   type="file"
                   accept=".pdf,.doc,.docx"
@@ -194,18 +194,17 @@ const JobCard = ({ filters }) => {
 
                 <label
                   htmlFor="resumeUpload"
-                  className="cursor-pointer px-5 py-2 bg-[#5c73db] text-white font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
+                  className="cursor-pointer px-3 py-1.5 bg-[#5c73db] text-white text-sm font-semibold rounded-md hover:bg-[#4a5ec1] transition"
                 >
                   Choose File
                 </label>
 
-                {/* Show selected file name */}
-                <span className="ml-4 text-gray-600 text-lg truncate">
+                <span className="ml-2 text-gray-600 text-xs truncate">
                   {resume ? resume.name : "No file chosen"}
                 </span>
               </div>
 
-              <p className="mt-2 text-lg text-gray-500">
+              <p className="mt-1 text-xs text-gray-500">
                 Accepted formats: .pdf, .doc, .docx
               </p>
             </div>
@@ -213,13 +212,13 @@ const JobCard = ({ filters }) => {
             {/* Apply Button */}
             <button
               onClick={() => handleApply(selectedJob._id)}
-              disabled={loading} // disable when loading
-              className="mt-6 w-full cursor-pointer px-5 py-5 bg-[#5c73db] text-white text-xl font-bold rounded-xl hover:bg-[#4a5ec1] transition disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+              disabled={loading}
+              className="mt-4 w-full px-4 py-2 bg-[#5c73db] text-white text-sm font-bold rounded-lg hover:bg-[#4a5ec1] transition disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center gap-2"
             >
               {loading ? (
                 <>
                   <svg
-                    className="animate-spin h-6 w-6 text-white"
+                    className="animate-spin h-4 w-4 text-white"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"

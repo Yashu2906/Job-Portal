@@ -59,23 +59,23 @@ const Login = () => {
       <img
         src="./src/assets/logo.png"
         alt="Logo"
-        className="h-16 sm:h-20 mb-5 cursor-pointer"
+        className="h-10 sm:h-16 mb-5 cursor-pointer"
       />
 
-      <div className="relative w-full max-w-[1250px] h-auto lg:h-[800px] bg-white overflow-hidden rounded-[30px] sm:rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex flex-col lg:flex-row">
+      <div className="relative w-full max-w-[1000px] h-auto lg:h-[600px] bg-white overflow-y-auto lg:overflow-hidden rounded-[30px] sm:rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex flex-col lg:flex-row">
         {/* Login */}
         <form
           onSubmit={onSubmitHandler}
           className="w-full lg:w-1/2 flex flex-col justify-center items-center text-[#333] p-6 sm:p-8"
         >
-          <h1 className="text-3xl sm:text-4xl  lg:text-6xl mt-12 lg:mt-0 font-bold text-center ">
+          <h1 className="text-3xl sm:text-2xl  lg:text-5xl mt-12 lg:mt-0 font-bold text-center ">
             Login
           </h1>
 
           <div className="relative flex mt-6 sm:mt-10 w-full max-w-[500px]">
             <input
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full h-14 sm:h-16 px-5 pr-12 bg-[#eee] text-lg sm:text-xl lg:text-2xl font-medium rounded-xl outline-none"
+              className="w-full h-12 sm:h-15 px-5 pr-12 bg-[#eee] text-lg sm:text-xl lg:text-xl font-medium rounded-xl outline-none"
               type="email"
               value={email}
               placeholder="Email"
@@ -83,14 +83,14 @@ const Login = () => {
             />
             <FontAwesomeIcon
               icon={faEnvelope}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-xl sm:text-2xl lg:text-3xl"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-lg sm:text-xl lg:text-2xl"
             />
           </div>
 
           <div className="relative flex mt-4 sm:mt-6 w-full max-w-[500px]">
             <input
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full h-14 sm:h-16 px-5 pr-14 bg-[#eee] text-lg sm:text-xl lg:text-2xl font-medium rounded-xl outline-none"
+              className="w-full h-12 sm:h-15 px-5 pr-12 bg-[#eee] text-lg sm:text-xl lg:text-xl font-medium rounded-xl outline-none"
               type="password"
               value={password}
               placeholder="Password"
@@ -98,13 +98,13 @@ const Login = () => {
             />
             <FontAwesomeIcon
               icon={faLock}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-xl sm:text-2xl lg:text-3xl text-gray-600"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-lg sm:text-xl lg:text-2xl"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full max-w-[500px] h-14 sm:h-16 bg-[#7494ec] rounded-xl text-white text-lg sm:text-xl lg:text-2xl font-bold mt-6 sm:mt-8"
+            className="w-full max-w-[500px] h-12 sm:h-14 bg-[#7494ec] rounded-xl text-white text-lg sm:text-lg lg:text-xl font-bold mt-6 sm:mt-8"
           >
             Login
           </button>
@@ -115,14 +115,14 @@ const Login = () => {
           onSubmit={onSubmitHandler}
           className="w-full lg:w-1/2 flex flex-col justify-center items-center text-[#333] p-6 sm:p-8"
         >
-          <h1 className="text-3xl sm:text-4xl lg:text-6xl mt-10 sm:mt-25 lg:mt-2  font-bold text-center">
+          <h1 className="text-3xl sm:text-2xl  lg:text-5xl mt-12 lg:mt-0 font-bold text-center">
             Register
           </h1>
 
           <div className="relative flex mt-6 sm:mt-10 w-full max-w-[500px]">
             <input
               onChange={(e) => setName(e.target.value)}
-              className="w-full h-14 sm:h-16 px-5 pr-12 bg-[#eee] text-lg sm:text-xl lg:text-2xl font-medium rounded-xl outline-none"
+              className="w-full h-12 sm:h-15 px-5 pr-12 bg-[#eee] text-lg sm:text-xl lg:text-xl font-medium rounded-xl outline-none"
               type="text"
               value={name}
               placeholder="Name"
@@ -130,14 +130,14 @@ const Login = () => {
             />
             <FontAwesomeIcon
               icon={faUser}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-xl sm:text-2xl lg:text-3xl"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-lg sm:text-xl lg:text-2xl"
             />
           </div>
 
           <div className="relative flex mt-4 sm:mt-6 w-full max-w-[500px]">
             <input
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full h-14 sm:h-16 px-5 pr-12 bg-[#eee] text-lg sm:text-xl lg:text-2xl font-medium rounded-xl outline-none"
+              className="w-full h-12 sm:h-15 px-5 pr-12 bg-[#eee] text-lg sm:text-xl lg:text-xl font-medium rounded-xl outline-none"
               type="email"
               value={email}
               placeholder="Email"
@@ -145,14 +145,14 @@ const Login = () => {
             />
             <FontAwesomeIcon
               icon={faEnvelope}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-xl sm:text-2xl lg:text-3xl"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-lg sm:text-xl lg:text-2xl"
             />
           </div>
 
           <div className="relative flex mt-4 sm:mt-6 w-full max-w-[500px]">
             <input
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full h-14 sm:h-16 px-5 pr-14 bg-[#eee] text-lg sm:text-xl lg:text-2xl font-medium rounded-xl outline-none"
+              className="w-full h-12 sm:h-15 px-5 pr-12 bg-[#eee] text-lg sm:text-xl lg:text-xl font-medium rounded-xl outline-none"
               type="password"
               value={password}
               placeholder="Password"
@@ -160,7 +160,7 @@ const Login = () => {
             />
             <FontAwesomeIcon
               icon={faLock}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-xl sm:text-2xl lg:text-3xl text-gray-600"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-lg sm:text-xl lg:text-2xl"
             />
           </div>
 
@@ -171,7 +171,7 @@ const Login = () => {
                 <button
                   key={role}
                   type="button"
-                  className={`py-2 sm:py-3 px-4 sm:px-5 rounded-xl border shadow-sm text-base sm:text-lg font-medium transition-all duration-300 hover:scale-105 data-[selected=true]:bg-[#5c73db] data-[selected=true]:text-white`}
+                  className={`py-2 sm:py-3 px-4 sm:px-5 rounded-xl border shadow-sm text-base sm:text-md font-medium transition-all duration-300 hover:scale-105 data-[selected=true]:bg-[#5c73db] data-[selected=true]:text-white`}
                   onClick={() => setSelectedRole(role)}
                   data-selected={selectedRole === role}
                 >
@@ -183,7 +183,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full max-w-[500px] h-14 sm:h-16 bg-[#7494ec] rounded-xl text-white text-lg sm:text-xl lg:text-2xl font-bold mt-6 sm:mt-8"
+            className="w-full max-w-[500px] h-12 sm:h-14 bg-[#7494ec] rounded-xl text-white text-lg sm:text-lg lg:text-xl font-bold mt-6 sm:mt-8"
           >
             Register
           </button>
@@ -206,15 +206,15 @@ const Login = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center"
               >
-                <h1 className="text-4xl lg:text-5xl font-extrabold mb-4">
+                <h1 className="text-4xl lg:text-4xl font-extrabold mb-4">
                   Hello, Welcome!
                 </h1>
-                <p className="text-lg lg:text-2xl mb-6">
+                <p className="text-lg lg:text-xl mb-6">
                   Already have an account?
                 </p>
                 <button
                   onClick={() => setIsLogin(false)}
-                  className="px-6 lg:px-8 py-3 lg:py-4 w-[75%] bg-[#5c73db] text-white border-2 text-lg lg:text-2xl font-bold rounded-2xl"
+                  className="px-6 lg:px-6 py-3 lg:py-3 w-[75%] bg-[#5c73db] text-white border-1 text-lg lg:text-xl font-semibold rounded-2xl"
                 >
                   Login <FontAwesomeIcon icon={faArrowRight} />
                 </button>
@@ -228,15 +228,15 @@ const Login = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center"
               >
-                <h1 className="text-4xl lg:text-5xl font-extrabold mb-4">
+                <h1 className="text-4xl lg:text-4xl font-extrabold mb-4">
                   Welcome Back!
                 </h1>
-                <p className="text-lg lg:text-2xl mb-6">
+                <p className="text-lg lg:text-xl mb-6">
                   Don't have an account?
                 </p>
                 <button
                   onClick={() => setIsLogin(true)}
-                  className="px-6 lg:px-8 py-3 lg:py-4 w-[75%] bg-[#5c73db] text-white border-2 text-lg lg:text-2xl font-bold rounded-2xl"
+                  className="px-6 lg:px-8 py-3 lg:py-3 w-[75%] bg-[#5c73db] text-white border-1 text-lg lg:text-xl font-semibold rounded-2xl"
                 >
                   <FontAwesomeIcon icon={faArrowLeft} /> Register
                 </button>
@@ -269,7 +269,7 @@ const Login = () => {
                 </p>
                 <button
                   onClick={() => setIsLogin(false)}
-                  className="px-6 py-3 w-[75%] bg-[#5c73db] text-white border-2 text-base sm:text-lg font-bold rounded-xl"
+                  className="px-6 py-3 w-[75%] bg-[#5c73db] text-white border-1 text-base sm:text-lg font-bold rounded-xl"
                 >
                   Login <FontAwesomeIcon icon={faArrowDown} />
                 </button>
@@ -291,7 +291,7 @@ const Login = () => {
                 </p>
                 <button
                   onClick={() => setIsLogin(true)}
-                  className="px-6 py-3 w-[75%] bg-[#5c73db] text-white border-2 text-base sm:text-lg font-bold rounded-xl"
+                  className="px-6 py-3 w-[75%] bg-[#5c73db] text-white border-1 text-base sm:text-lg font-bold rounded-xl"
                 >
                   <FontAwesomeIcon icon={faArrowUp} /> Register
                 </button>
