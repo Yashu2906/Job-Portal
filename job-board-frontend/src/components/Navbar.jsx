@@ -9,7 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Navbar = () => {
-  const { user, logout } = useContext(AuthContext); // removed loading
+  const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -28,18 +28,21 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-6">
           {user ? (
             <>
-              <h1
-                className="text-lg text-[#5c73db] cursor-pointer font-semibold"
-                onClick={() => navigate("/myapplications")}
-              >
-                Applications
-              </h1>
+              {/* Show Applications ONLY if role is JobSeeker */}
+              {user.role === "JobSeekers" && (
+                <h1
+                  className="text-lg text-[#5c73db] cursor-pointer font-semibold"
+                  onClick={() => navigate("/myapplications")}
+                >
+                  Applications
+                </h1>
+              )}
               <button
                 onClick={() => {
                   logout();
                   navigate("/login");
                 }}
-                className="px-6 py-2 bg-[#5c73db] text-white text-base font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
+                className="px-12 py-2 bg-[#5c73db] text-white text-md font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
               >
                 Logout <FontAwesomeIcon icon={faArrowRightFromBracket} />
               </button>
@@ -47,7 +50,7 @@ const Navbar = () => {
           ) : (
             <button
               onClick={() => navigate("/login")}
-              className="px-6 py-2 bg-[#5c73db] text-white text-base font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
+              className="px-12 py-2 bg-[#5c73db] text-white text-md font-semibold rounded-lg hover:bg-[#4a5ec1] transition"
             >
               Login
             </button>
@@ -70,15 +73,18 @@ const Navbar = () => {
         <div className="md:hidden px-4 pb-3 space-y-3">
           {user ? (
             <div className="flex gap-6 justify-end">
-              <h1
-                className="text-base text-[#5c73db] font-semibold cursor-pointer"
-                onClick={() => {
-                  navigate("/myapplications");
-                  setMenuOpen(false);
-                }}
-              >
-                Applications
-              </h1>
+              {/* Show Applications ONLY if role is JobSeeker */}
+              {user.role === "JobSeeker" && (
+                <h1
+                  className="text-base text-[#5c73db] font-semibold cursor-pointer"
+                  onClick={() => {
+                    navigate("/myapplications");
+                    setMenuOpen(false);
+                  }}
+                >
+                  Applications
+                </h1>
+              )}
               <p
                 onClick={() => {
                   logout();

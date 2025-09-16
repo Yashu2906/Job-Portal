@@ -11,7 +11,7 @@ const UserApplications = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const token = localStorage.getItem("token"); // auth token
+        const token = localStorage.getItem("token");
         const res = await axios.get(`${backendUrl}/api/application/user`, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -26,35 +26,35 @@ const UserApplications = () => {
     fetchApplications();
   }, []);
 
-  if (loading) return <p className="text-center">Loading...</p>;
+  if (loading) return <p className="text-center text-sm">Loading...</p>;
 
   return (
     <div>
       <Navbar />
-      <div className="px-4 sm:px-8 lg:ml-20 w-full mx-auto mt-8">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 text-[#7494ec]">
+      <div className="px-3 sm:px-6 lg:ml-16 w-full mx-auto mt-6">
+        <h2 className="text-xl sm:text-2xl lg:text-2xl font-semibold mb-4 text-[#7494ec]">
           My Applications
         </h2>
         {applications.length === 0 ? (
-          <p className="text-gray-600 text-base sm:text-lg">
+          <p className="text-gray-600 text-sm sm:text-base">
             You haven’t applied to any jobs yet.
           </p>
         ) : (
-          <div className="flex flex-wrap gap-5">
+          <div className="flex flex-wrap gap-3">
             {applications.map((app) => (
               <div
                 key={app._id}
-                className="p-4 sm:p-6 shadow-2xl rounded-2xl border border-gray-300 
-                w-full sm:w-[48%] lg:w-[20%] bg-white"
+                className="p-3 sm:p-4 shadow-md rounded-xl border border-gray-200 
+                w-full sm:w-[45%] lg:w-[18%] bg-white"
               >
                 <div>
-                  <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold">
+                  <h3 className="text-base sm:text-lg lg:text-lg font-semibold mb-1">
                     {app.jobId?.title || "Job Title"}
                   </h3>
-                  <p className="text-gray-600 text-sm sm:text-base lg:text-lg">
+                  <p className="text-gray-600 text-xs sm:text-sm lg:text-base">
                     {app.jobId?.company} • {app.jobId?.location}
                   </p>
-                  <p className="mt-2 text-sm sm:text-base lg:text-lg">
+                  <p className="mt-2 text-xs sm:text-sm lg:text-base">
                     <span className="font-medium">Status:</span>{" "}
                     <span
                       className={

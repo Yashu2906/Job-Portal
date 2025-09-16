@@ -32,43 +32,48 @@ const MyJobs = () => {
   }, []);
 
   return (
-    <div>
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#5c73db] mb-6">
+    <div className="px-4 py-6 bg-gray-50 min-h-screen">
+      <h1 className="text-xl md:text-2xl font-bold text-[#5c73db] mb-4">
         My Jobs
       </h1>
 
       {loading ? (
-        <p>Loading jobs...</p>
+        <p className="text-sm text-gray-600">Loading jobs...</p>
       ) : jobs.length === 0 ? (
-        <p className="text-lg sm:text-xl">You have not posted any jobs yet.</p>
+        <p className="text-base text-gray-600">
+          You have not posted any jobs yet.
+        </p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto">
-          {jobs.map((job) => (
-            <div
-              key={job._id}
-              className="p-5 sm:p-6 md:p-7 border border-gray-300 bg-white rounded-lg shadow-md hover:shadow-lg transition"
-            >
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-800 mb-2">
-                {job.title}
-              </h2>
+        // Scrollable container
+        <div className="max-h-[70vh] overflow-y-auto pr-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {jobs.map((job) => (
+              <div
+                key={job._id}
+                className="p-4 border border-gray-200 bg-white rounded-md shadow-sm hover:shadow-md transition"
+              >
+                <h2 className="text-lg font-semibold text-gray-800 mb-1">
+                  {job.title}
+                </h2>
 
-              <p className="text-lg sm:text-xl text-gray-500 mb-2 font-semibold">
-                {job.company}
-              </p>
+                <p className="text-sm font-medium text-gray-600 mb-1">
+                  {job.company}
+                </p>
 
-              <p className="text-sm sm:text-base md:text-lg text-gray-500 mb-2">
-                {job.location} • {job.jobType}
-              </p>
+                <p className="text-xs text-gray-500 mb-1">
+                  {job.location} • {job.jobType}
+                </p>
 
-              <p className="text-sm sm:text-md md:text-lg text-gray-700 mb-2 line-clamp-2">
-                {job.description}
-              </p>
+                <p className="text-sm text-gray-700 mb-2 line-clamp-2">
+                  {job.description}
+                </p>
 
-              <p className="text-sm sm:text-base text-gray-600">
-                Posted on {new Date(job.createdAt).toLocaleDateString()}
-              </p>
-            </div>
-          ))}
+                <p className="text-xs text-gray-500">
+                  Posted on {new Date(job.createdAt).toLocaleDateString()}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

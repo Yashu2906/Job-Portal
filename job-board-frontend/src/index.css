@@ -6,5 +6,15 @@
 
 html, body {
   height: 100%;
-  overflow: hidden; /* disables page scroll */
+  overflow: hidden; 
+}
+
+/* Hide scrollbar but keep scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;     
 }

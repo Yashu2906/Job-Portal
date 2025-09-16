@@ -21,11 +21,11 @@ const CompanyLayout = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div
-          className={`fixed inset-y-0 left-0 z-40 w-100 bg-[#5c73db] text-white transform 
+          className={`fixed inset-y-0 left-0 z-40 w-70 bg-[#5c73db] text-white transform 
           transition-transform duration-300 lg:static lg:translate-x-0 rounded-none lg:rounded-2xl
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
-          <h2 className="flex justify-center text-2xl sm:text-3xl font-bold p-6">
+          <h2 className="flex justify-center text-xl sm:text-2xl font-bold p-6">
             Company Panel
           </h2>
           <nav className="flex flex-col gap-2 sm:gap-4 p-4">
@@ -39,7 +39,7 @@ const CompanyLayout = () => {
               <button
                 key={item.name}
                 onClick={() => handleNavClick(item.name, item.path)}
-                className={`py-3 sm:py-4 rounded-xl text-base sm:text-lg lg:text-xl font-semibold transition 
+                className={`py-3 sm:py-2 rounded-xl text-md sm:text-lg lg:text-lg font-semibold  transition 
                   ${
                     active === item.name
                       ? "bg-white text-[#5c73db] font-bold"

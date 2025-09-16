@@ -55,27 +55,27 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff] px-4">
+    <div className="flex flex-col justify-center items-center h-screen overflow-y-auto  bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff] px-4">
       <img
         src="./src/assets/logo.png"
         alt="Logo"
         className="h-10 sm:h-16 mb-5 cursor-pointer"
       />
 
-      <div className="relative w-full max-w-[1000px] h-auto lg:h-[600px] bg-white overflow-y-auto lg:overflow-hidden rounded-[30px] sm:rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex flex-col lg:flex-row">
+      <div className="relative w-full max-w-[1000px] h-[800px] lg:h-[600px] bg-white  rounded-[30px] sm:rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex flex-col lg:flex-row">
         {/* Login */}
         <form
           onSubmit={onSubmitHandler}
-          className="w-full lg:w-1/2 flex flex-col justify-center items-center text-[#333] p-6 sm:p-8"
+          className="w-full lg:w-1/2 flex flex-col justify-center items-center text-[#333] px-6 sm:p-10"
         >
-          <h1 className="text-3xl sm:text-2xl  lg:text-5xl mt-12 lg:mt-0 font-bold text-center ">
+          <h1 className="text-3xl sm:text-2xl  lg:text-4xl mt-20 lg:mt-0 font-bold text-center ">
             Login
           </h1>
 
           <div className="relative flex mt-6 sm:mt-10 w-full max-w-[500px]">
             <input
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full h-12 sm:h-15 px-5 pr-12 bg-[#eee] text-lg sm:text-xl lg:text-xl font-medium rounded-xl outline-none"
+              className="w-full h-12 sm:h-14 px-5 pr-12 bg-[#eee] text-lg sm:text-lg lg:text-lg font-medium rounded-xl outline-none"
               type="email"
               value={email}
               placeholder="Email"
@@ -90,7 +90,7 @@ const Login = () => {
           <div className="relative flex mt-4 sm:mt-6 w-full max-w-[500px]">
             <input
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full h-12 sm:h-15 px-5 pr-12 bg-[#eee] text-lg sm:text-xl lg:text-xl font-medium rounded-xl outline-none"
+              className="w-full h-12 sm:h-14 px-5 pr-12 bg-[#eee] text-lg sm:text-xl lg:text-lg font-medium rounded-xl outline-none"
               type="password"
               value={password}
               placeholder="Password"
@@ -104,7 +104,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full max-w-[500px] h-12 sm:h-14 bg-[#7494ec] rounded-xl text-white text-lg sm:text-lg lg:text-xl font-bold mt-6 sm:mt-8"
+            className="w-full max-w-[500px] h-12 sm:h-14 bg-[#7494ec] rounded-xl text-white text-lg sm:text-lg lg:text-xl font-bold mt-6 sm:mt-8 cursor-pointer"
           >
             Login
           </button>
@@ -115,14 +115,14 @@ const Login = () => {
           onSubmit={onSubmitHandler}
           className="w-full lg:w-1/2 flex flex-col justify-center items-center text-[#333] p-6 sm:p-8"
         >
-          <h1 className="text-3xl sm:text-2xl  lg:text-5xl mt-12 lg:mt-0 font-bold text-center">
+          <h1 className="text-3xl sm:text-2xl  lg:text-4xl mt-20 lg:mt-0 font-bold text-center">
             Register
           </h1>
 
           <div className="relative flex mt-6 sm:mt-10 w-full max-w-[500px]">
             <input
               onChange={(e) => setName(e.target.value)}
-              className="w-full h-12 sm:h-15 px-5 pr-12 bg-[#eee] text-lg sm:text-xl lg:text-xl font-medium rounded-xl outline-none"
+              className="w-full h-12 sm:h-14 px-5 pr-12 bg-[#eee] text-lg sm:text-lg lg:text-lg font-medium rounded-xl outline-none"
               type="text"
               value={name}
               placeholder="Name"
@@ -137,7 +137,7 @@ const Login = () => {
           <div className="relative flex mt-4 sm:mt-6 w-full max-w-[500px]">
             <input
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full h-12 sm:h-15 px-5 pr-12 bg-[#eee] text-lg sm:text-xl lg:text-xl font-medium rounded-xl outline-none"
+              className="w-full h-12 sm:h-14 px-5 pr-12 bg-[#eee] text-lg sm:text-lg lg:text-lg font-medium rounded-xl outline-none"
               type="email"
               value={email}
               placeholder="Email"
@@ -152,7 +152,7 @@ const Login = () => {
           <div className="relative flex mt-4 sm:mt-6 w-full max-w-[500px]">
             <input
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full h-12 sm:h-15 px-5 pr-12 bg-[#eee] text-lg sm:text-xl lg:text-xl font-medium rounded-xl outline-none"
+              className="w-full h-12 sm:h-14 px-5 pr-12 bg-[#eee] text-lg sm:text-lg lg:text-lg font-medium rounded-xl outline-none"
               type="password"
               value={password}
               placeholder="Password"
@@ -171,7 +171,7 @@ const Login = () => {
                 <button
                   key={role}
                   type="button"
-                  className={`py-2 sm:py-3 px-4 sm:px-5 rounded-xl border shadow-sm text-base sm:text-md font-medium transition-all duration-300 hover:scale-105 data-[selected=true]:bg-[#5c73db] data-[selected=true]:text-white`}
+                  className={`mb-3 py-2 sm:py-2 px-4 sm:px-5 rounded-xl border shadow-sm text-base sm:text-md font-medium transition-all duration-300 hover:scale-105 data-[selected=true]:bg-[#5c73db] data-[selected=true]:text-white`}
                   onClick={() => setSelectedRole(role)}
                   data-selected={selectedRole === role}
                 >
@@ -183,7 +183,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full max-w-[500px] h-12 sm:h-14 bg-[#7494ec] rounded-xl text-white text-lg sm:text-lg lg:text-xl font-bold mt-6 sm:mt-8"
+            className="w-full max-w-[500px] h-12 sm:h-14 bg-[#7494ec] rounded-xl text-white text-lg sm:text-lg lg:text-xl font-bold  sm:mt-8 cursor-pointer"
           >
             Register
           </button>
@@ -206,15 +206,15 @@ const Login = () => {
                 transition={{ duration: 0.6 }}
                 className="text-center"
               >
-                <h1 className="text-4xl lg:text-4xl font-extrabold mb-4">
+                <h1 className="text-3xl lg:text-3xl font-extrabold mb-4">
                   Hello, Welcome!
                 </h1>
-                <p className="text-lg lg:text-xl mb-6">
+                <p className="text-base lg:text-base mb-6">
                   Already have an account?
                 </p>
                 <button
                   onClick={() => setIsLogin(false)}
-                  className="px-6 lg:px-6 py-3 lg:py-3 w-[75%] bg-[#5c73db] text-white border-1 text-lg lg:text-xl font-semibold rounded-2xl"
+                  className="px-6 lg:px-8 py-3 lg:py-3 w-[75%] bg-[#5c73db] text-white border-1 text-lg lg:text-xl font-bold rounded-2xl cursor-pointer"
                 >
                   Login <FontAwesomeIcon icon={faArrowRight} />
                 </button>
@@ -231,12 +231,12 @@ const Login = () => {
                 <h1 className="text-4xl lg:text-4xl font-extrabold mb-4">
                   Welcome Back!
                 </h1>
-                <p className="text-lg lg:text-xl mb-6">
+                <p className="text-base lg:text-base mb-6">
                   Don't have an account?
                 </p>
                 <button
                   onClick={() => setIsLogin(true)}
-                  className="px-6 lg:px-8 py-3 lg:py-3 w-[75%] bg-[#5c73db] text-white border-1 text-lg lg:text-xl font-semibold rounded-2xl"
+                  className="px-6 lg:px-8 py-3 lg:py-3 w-[75%] bg-[#5c73db] text-white border-1 text-lg lg:text-lg font-bold rounded-2xl"
                 >
                   <FontAwesomeIcon icon={faArrowLeft} /> Register
                 </button>
@@ -269,7 +269,7 @@ const Login = () => {
                 </p>
                 <button
                   onClick={() => setIsLogin(false)}
-                  className="px-6 py-3 w-[75%] bg-[#5c73db] text-white border-1 text-base sm:text-lg font-bold rounded-xl"
+                  className="px-6 py-3 w-[75%] bg-[#5c73db] text-white border-2 text-base sm:text-lg font-bold rounded-xl"
                 >
                   Login <FontAwesomeIcon icon={faArrowDown} />
                 </button>
@@ -291,7 +291,7 @@ const Login = () => {
                 </p>
                 <button
                   onClick={() => setIsLogin(true)}
-                  className="px-6 py-3 w-[75%] bg-[#5c73db] text-white border-1 text-base sm:text-lg font-bold rounded-xl"
+                  className="px-6 py-3 w-[75%] bg-[#5c73db] text-white border-2 text-base sm:text-lg font-bold rounded-xl"
                 >
                   <FontAwesomeIcon icon={faArrowUp} /> Register
                 </button>

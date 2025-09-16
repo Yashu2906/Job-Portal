@@ -67,54 +67,55 @@ const Applications = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#5c73db] mb-6 overflow-y-auto">
+    <div className="max-h-[80vh] overflow-y-auto p-2 sm:p-4">
+      <h1 className="text-xl sm:text-2xl font-bold text-[#5c73db] mb-4">
         Applications
       </h1>
 
       {loading ? (
-        <p className="text-lg sm:text-xl">Loading applications...</p>
+        <p className="text-base sm:text-lg">Loading applications...</p>
       ) : Object.keys(applications).length === 0 ? (
-        <p className="text-lg sm:text-xl">
+        <p className="text-base sm:text-lg">
           No applications found for your jobs.
         </p>
       ) : (
-        <div className="space-y-8">
+        <div className="space-y-4 overflow-y-auto no-scrollbar">
           {Object.entries(applications).map(([jobTitle, apps]) => (
             <div
               key={jobTitle}
-              className="bg-white border border-gray-400 p-4 sm:p-6 rounded-lg shadow-lg"
+              className="bg-white border border-gray-300 p-3 sm:p-4 rounded-lg shadow-md"
             >
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-800 mb-4">
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3">
                 {jobTitle}
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {apps.map((app) => (
                   <div
                     key={app._id}
-                    className="p-4 sm:p-6 border border-gray-300 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
+                    className="p-3 border border-gray-200 rounded-md flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3"
                   >
                     {/* Applicant Info */}
-                    <div className="flex flex-col gap-2">
-                      <p className="font-medium text-gray-700 text-base sm:text-lg md:text-xl">
+                    <div className="flex flex-col gap-1">
+                      <p className="font-medium text-gray-700 text-sm sm:text-base">
                         {app.applicant?.name} ({app.applicant?.email})
                       </p>
-                      <p className="text-base sm:text-lg text-gray-600">
+                      <p className="text-sm text-gray-600">
                         Status:{" "}
                         <span className="capitalize font-semibold">
                           {app.status}
                         </span>
                       </p>
-                      <p className="text-sm sm:text-base text-gray-500">
+                      <p className="text-xs text-gray-500">
                         Applied on{" "}
                         {new Date(app.appliedAt).toLocaleDateString()}
                       </p>
                     </div>
+
                     {/* Action Buttons */}
-                    <div className="flex  sm:flex-row gap-3 w-full sm:w-auto">
+                    <div className="flex flex-wrap gap-2 w-full sm:w-auto">
                       <button
                         onClick={() => handleOpenResume(app._id, app.resumeUrl)}
-                        className="px-4 py-2 sm:px-6 sm:py-3 text-white text-sm sm:text-lg font-semibold rounded-lg bg-[#5c73db] hover:bg-[#4a5ec1] transition"
+                        className="px-3 py-1 text-xs sm:text-sm text-white font-semibold rounded bg-[#5c73db] hover:bg-[#4a5ec1] transition"
                       >
                         View Resume
                       </button>
@@ -122,13 +123,13 @@ const Applications = () => {
                         onClick={() =>
                           handleStatusUpdate(app._id, "shortlisted")
                         }
-                        className="px-4 py-2 sm:px-6 sm:py-3 text-white text-sm sm:text-lg font-semibold rounded-lg bg-green-500 hover:bg-green-600 transition"
+                        className="px-3 py-1 text-xs sm:text-sm text-white font-semibold rounded bg-green-500 hover:bg-green-600 transition"
                       >
                         Shortlist
                       </button>
                       <button
                         onClick={() => handleStatusUpdate(app._id, "rejected")}
-                        className="px-4 py-2 sm:px-6 sm:py-3 text-white text-sm sm:text-lg font-semibold rounded-lg bg-red-500 hover:bg-red-600 transition"
+                        className="px-3 py-1 text-xs sm:text-sm text-white font-semibold rounded bg-red-500 hover:bg-red-600 transition"
                       >
                         Reject
                       </button>
