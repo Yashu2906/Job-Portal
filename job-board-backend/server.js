@@ -13,7 +13,11 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://job-x.netlify.app/"],
+  })
+);
 
 app.get("/api", (req, res) => {
   res.send("Api working");

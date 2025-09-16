@@ -30,13 +30,13 @@ const CitySearchBox = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto mt-4 relative">
+    <div className="w-full max-w-md mx-auto mt-2 relative">
       <input
         type="text"
         value={query}
         onChange={(e) => handleChange(e.target.value)}
         placeholder="Search Indian city..."
-        className="w-full px-4 py-3 border rounded-lg shadow-md text-xl"
+        className="w-full px-4 py-2 border rounded-lg shadow-md text-md"
       />
 
       {suggestions.length > 0 && (
