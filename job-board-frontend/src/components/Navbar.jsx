@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import logo from "../assets/logo.png";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import {
@@ -16,19 +17,16 @@ const Navbar = () => {
   return (
     <nav className="shadow-md bg-white">
       <div className="flex items-center justify-between px-4 py-3">
-        {/* Logo */}
         <img
-          src="./src/assets/logo.png"
+          src={logo}
           alt="Logo"
           className="h-10 cursor-pointer lg:h-14"
           onClick={() => navigate("/")}
         />
 
-        {/* Desktop buttons */}
         <div className="hidden md:flex items-center gap-6">
           {user ? (
             <>
-              {/* Show Applications ONLY if role is JobSeeker */}
               {user.role === "JobSeekers" && (
                 <h1
                   className="text-lg text-[#5c73db] cursor-pointer font-semibold"
