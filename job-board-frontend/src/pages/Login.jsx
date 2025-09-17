@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import logo from "../assets/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -56,11 +57,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen overflow-y-auto  bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff] px-4">
-      <img
-        src="./src/assets/logo.png"
-        alt="Logo"
-        className="h-10 sm:h-16 mb-5 cursor-pointer"
-      />
+      <img src={logo} alt="Logo" className="h-10 sm:h-16 mb-5 cursor-pointer" />
 
       <div className="relative w-full max-w-[1000px] h-[800px] lg:h-[600px] bg-white  rounded-[30px] sm:rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex flex-col lg:flex-row">
         {/* Login */}
