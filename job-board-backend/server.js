@@ -15,7 +15,8 @@ connectDB();
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://job-x.netlify.app/",
+    origin: "https://job-x.netlify.app",
+    methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
 );
