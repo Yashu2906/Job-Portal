@@ -26,9 +26,14 @@ const JobPage = () => {
         </div>
 
         {/* Job Cards */}
-        <div className="px-4 md:px-6 py-6 bg-[#f9faff]">
+        <div
+          className="
+            px-4 md:px-6 py-6 bg-[#f9faff]
+            md:flex-1 md:overflow-y-auto md:min-h-0
+          "
+        >
           <JobCard filters={filters} />
-          <div className="pb-20" /> {/* bottom spacing */}
+          <div className="pb-20" />
         </div>
       </div>
     </div>
