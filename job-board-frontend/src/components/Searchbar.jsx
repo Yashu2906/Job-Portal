@@ -18,7 +18,7 @@ const Searchbar = ({ setFilters }) => {
           placeholder="Search jobs, Company..."
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="w-full pl-4 pr-28 py-2 md:py-3 border border-gray-300 rounded-lg shadow-md
+          className="w-full pl-4 pr-28 py-3 md:py-4 border border-gray-300 rounded-lg shadow-md
           focus:outline-[#5c73db] focus:ring focus:ring-[#5c73db] 
           hover:shadow-lg transition-all duration-300 text-sm md:text-base"
         />

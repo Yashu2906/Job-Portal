@@ -12,9 +12,9 @@ const JobPage = () => {
   });
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-[#f9faff]">
+    <div className="flex flex-col md:flex-row min-h-screen bg-[#f9faff]">
       {/* Sidebar */}
-      <div className="w-full md:w-1/3 lg:w-1/4 xl:w-1/5 border-r border-gray-200 bg-white/80 backdrop-blur-md shadow-lg overflow-y-auto">
+      <div className="w-full md:w-1/3 lg:w-1/4 xl:w-1/5 border-r border-gray-200 bg-white/80 backdrop-blur-md shadow-lg">
         <Sidebar filters={filters} setFilters={setFilters} />
       </div>
 
@@ -26,7 +26,7 @@ const JobPage = () => {
         </div>
 
         {/* Job Cards */}
-        <div className="flex-1 min-h-0 overflow-y-auto px-4 md:px-6 py-6 bg-[#f9faff]">
+        <div className="px-4 md:px-6 py-6 bg-[#f9faff]">
           <JobCard filters={filters} />
           <div className="pb-20" /> {/* bottom spacing */}
         </div>

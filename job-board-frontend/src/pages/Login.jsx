@@ -56,7 +56,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen overflow-y-auto  bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff] px-4">
+    <div className="flex flex-col justify-center items-center h-screen overflow-y-auto  bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff] px-4 mb-20">
       <img src={logo} alt="Logo" className="h-10 sm:h-16 mb-5 cursor-pointer" />
 
       <div className="relative w-full max-w-[1000px] h-[800px] lg:h-[600px] bg-white  rounded-[30px] sm:rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex flex-col lg:flex-row">
