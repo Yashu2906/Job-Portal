@@ -72,7 +72,7 @@ const Navbar = () => {
           {user ? (
             <div className="flex gap-6 justify-end">
               {/* Show Applications ONLY if role is JobSeeker */}
-              {user.role === "JobSeeker" && (
+              {user.role === "JobSeekers" && (
                 <h1
                   className="text-base text-[#5c73db] font-semibold cursor-pointer"
                   onClick={() => {

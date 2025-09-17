@@ -28,7 +28,7 @@ const Searchbar = ({ setFilters }) => {
           onClick={handleSearch}
           className="absolute right-2 top-1/2 -translate-y-1/2 
           px-4 md:px-6 py-1.5 md:py-2 bg-[#5c73db] text-white text-sm md:text-base font-semibold 
-          rounded-lg hover:bg-[#4a5ec1] transition"
+          rounded-lg"
         >
           Search <FontAwesomeIcon icon={faMagnifyingGlass} />
         </button>
